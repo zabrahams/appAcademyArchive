@@ -4,6 +4,8 @@ ruby '1.9.3'
 
 gem 'rails', '4.0.8'
 gem 'pg', '0.15.1'
+gem 'bootstrap-sass', '2.3.2.0'
+gem 'sprockets', '2.11.0'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
@@ -20,7 +22,7 @@ group :test do
   gem 'wdm', '0.1.0'
 end
 
-gem 'sass-rails', '4.0.1'
+gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
