@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/utilities'
 
 describe "User pages" do
   
@@ -9,7 +10,7 @@ describe "User pages" do
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
-    it { should have_title(user.name) }
+    it { should have_profile_title(user) }
   end
 
   describe "signup page" do
@@ -34,19 +35,17 @@ describe "User pages" do
         before { click_button submit }
 
         it { should have_title('Sign up') }
-        it { should have_content("Name can't be blank") }
-        it { should have_content("Email can't be blank") }
-        it { should have_content("Email is invalid") }
-        it { should have_content("Password can't be blank") }
-        it { should have_content("Password is too short") }
+        it { should have_flash_message("Name can't be blank") }
+        it { should have_flash_message("Email can't be blank") }
+        it { should have_flash_message("Email is invalid") }
+        it { should have_flash_message("Password can't be blank") }
+        it { should have_flash_message("Password is too short") }
       end
     end
 
     describe "with a password that doesn't match confirmation" do
       before do
-        fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "user@example.com"
-        fill_in "Password",     with: "foobar"
+        fill_create_form_with_valid_info
         fill_in "Confirmation", with: "notmatching"
       end
 
@@ -58,19 +57,15 @@ describe "User pages" do
         before { click_button submit }
 
         it { should have_title('Sign up') }
-        it { should have_content("Password confirmation doesn't match") }
+        it { should have_flash_message("Password confirmation doesn't match") }
       end
     end
 
     describe "with an email that is already taken" do
       before do
-        fill_in "Name",         with: "Example User" 
-        fill_in "Email",        with: "user@example.com"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
-        user_with_same_password = User.new(name: "Example User", email: "user@example.com",
-                                           password: "foobar", password_confirmation: "foobar")
-        user_with_same_password.save
+        fill_create_form_with_valid_info
+        user_with_same_email = get_user_with_same_email
+        user_with_same_email.save
       end
 
       it "should not create a user" do
@@ -81,17 +76,12 @@ describe "User pages" do
         before { click_button submit }
 
         it { should have_title('Sign up') }
-        it { should have_content("Email has already been taken") }
+        it { should have_flash_message("Email has already been taken") }
       end
     end
     
     describe "with valid information" do
-      before do
-        fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "user@example.com"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
-      end
+      before { fill_create_form_with_valid_info }
 
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -101,9 +91,9 @@ describe "User pages" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
 
-        it { should have_link('Sign out') }
-        it { should have_title(user.name) }
-        it { should have_selector('div.alert.alert-success', text: "Welcome") }
+        it { should be_signed_in }
+        it { should have_profile_title(user) }
+        it { should have_success_message("Welcome") }
       end
     end
   end
