@@ -29,10 +29,11 @@ describe "Authentication" do
   
     describe "with valid information" do
      	let (:user) { FactoryGirl.create(:user) }
-     	before { valid_signin(user) }
+     	before { sign_in(user) }
 
       it { should have_profile_title(user) }
       it { should have_profile }
+      it { should have_link('Settings', href: edit_user_path(user)) }
       it { should be_signed_in }
       it { should_not be_signed_out }
 
