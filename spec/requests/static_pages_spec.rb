@@ -31,6 +31,18 @@ describe "StaticPages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      describe "should display and pluralize the micropost count" do
+
+        describe "for multiple microposts" do
+          it { should have_content("2 microposts") }
+        end
+
+        describe "for a single micropost" do
+          before { click_link('delete', match: :first) }
+          it { should have_content("1 micropost") }
+        end
+      end
     end
   end  
 
