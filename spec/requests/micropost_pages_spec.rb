@@ -42,4 +42,27 @@ describe "MicropostPages" do
       end
     end
   end
+
+  describe "pagination" do
+    before { 35.times { FactoryGirl.create(:micropost, user: user) } }
+   
+    shared_examples_for "all micropost pagination" do
+      it { should have_selector('div.pagination') }
+      it "should list each micropost" do
+        user.microposts.paginate(page: 1).each do |micropost|
+          expect(page).to have_selector('li', text: micropost.content)
+        end
+      end
+    end 
+
+    describe "on the home page" do
+      before { visit root_path }
+      it_should_behave_like "all micropost pagination"
+    end
+
+    describe "on the profile page" do
+      before { visit user_path(user) }
+      it_should_behave_like "all micropost pagination"
+    end
+  end
 end
