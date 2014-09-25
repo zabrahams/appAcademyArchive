@@ -9,6 +9,18 @@ describe "StaticPages" do
     it { should have_title(full_title(page_title)) }
   end
 
+  shared_examples_for "pages with follower/following counts" do
+   let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      other_user.follow!(user)
+      visit root_path
+    end
+
+    it { should have_link("0 following", href: following_user_path(user)) }
+    it { should have_link("1 followers", href: followers_user_path(user)) }
+  end
+
+
   describe "Home page" do
     before { visit root_path }
     let(:heading)    { 'Sample App' }
@@ -31,18 +43,8 @@ describe "StaticPages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
-
-      describe "follower/following counts" do
-        let(:other_user) { FactoryGirl.create(:user) }
-        before do
-          other_user.follow!(user)
-          visit root_path
-        end
-
-        it { should have_link("0 following", href: following_user_path(user)) }
-        it { should have_link("1 followers", href: followers_user_path(user)) }
-      end
-
+      it_should_behave_like "pages with follower/following counts"
+       
       describe "should display and pluralize the micropost count" do
 
         describe "for multiple microposts" do
