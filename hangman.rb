@@ -65,7 +65,7 @@ end
 class HumanPlayer
 
   def pick_secret_word
-    puts "Please come up with a secret word! It does have to be a real word"
+    puts "Please come up with a secret word! It does have to be a real word."
   end
 
   def secret_length
@@ -76,10 +76,12 @@ class HumanPlayer
      puts "Please enter an integer!"
      retry
    end
+     @secret_word_length = number_of_letters
   end
 
   def receive_secret_length(secret_length)
     puts "The secret word contains #{secret_length} letters."
+    debugger
   end
 
   def guess
@@ -88,7 +90,7 @@ class HumanPlayer
       guess = gets.chomp.downcase
 
       raise "Error - Input Too long!" unless guess.length == 1
-      raise "Error - Input Not a Letter" unless ("a".."z").include?(guess)
+      raise "Error - Input Not a Letter!" unless ("a".."z").include?(guess)
 
       guess
 
@@ -109,10 +111,8 @@ class HumanPlayer
 
     begin
       letter_indices = gets.chomp.split(",").uniq
-      letter_indices.map { |index| Integer(index) }
-      # need to raise exception is any integer is higher than secret_word
-      # length.  But it involves accessing secret word length from here...
-      # Maybe pass it to guess?
+      letter_indices.map! { |index| Integer(index) }
+      letter_indices.each { |index| raise "Location not in word!" if index >= secret_word_length }
     rescue
       puts "Improper input format! Try again!"
       retry
@@ -140,6 +140,9 @@ class HumanPlayer
       puts "'#{guess}' is in locations: #{guess_indices.join(",")}"
     end
   end
+
+  private
+  attr_reader :secret_word_length
 
 end
 
