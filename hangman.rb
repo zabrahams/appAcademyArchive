@@ -1,3 +1,6 @@
+require 'set'
+require 'byebug'
+
 class Hangman
 
   attr_accessor :board, :master, :guesser, :current_turn
@@ -10,7 +13,9 @@ class Hangman
 
   def run
     master.pick_secret_word
-    @board = Array.new(master.secret_length)
+    secret_length = master.secret_length
+    guesser.receive_secret_length(secret_length)
+    @board = Array.new(secret_length)
     @current_turn = 0
 
     until (won? || current_turn == MAX_TURNS)
@@ -29,6 +34,7 @@ class Hangman
     puts "#{render_board}    Guesses Left: #{MAX_TURNS - current_turn}"
     guess = guesser.guess
     guess_indices = master.check_guess(guess)
+    guesser.handle_guess_response(guess, guess_indices)
 
     if guess_indices.empty?
       self.current_turn += 1
@@ -73,6 +79,10 @@ class HumanPlayer
    end
   end
 
+  def receive_secret_length(secret_length)
+    puts "The secret word contains #{secret_length} letters."
+  end
+
   def guess
     puts "Please make a guess!"
     begin
@@ -91,9 +101,11 @@ class HumanPlayer
   end
 
   def check_guess(guess)
-    puts "The other player guessed #{guess}."
-    puts "Please write the locations in the word where #{guess} is found"
-    puts "separated by commas. (Like '0,1,5')  Leave the line blank if #{guess}"
+    puts
+    puts "The other player guessed '#{guess}'."
+    puts
+    puts "Please write the locations in the word where '#{guess}' is found"
+    puts "separated by commas. (like '0,1,5')  Leave the line blank if '#{guess}'"
     puts "isn't in the word."
 
     begin
@@ -122,7 +134,12 @@ class HumanPlayer
     word
   end
 
-  def handle_guess_response
+  def handle_guess_response(guess, guess_indices)
+    if guess_indices.empty?
+      puts "'#{guess}' is not in the word."
+    else
+      puts "'#{guess}' is in locations: #{guess_indices.join(",")}"
+    end
   end
 
 end
@@ -139,8 +156,16 @@ class ComputerPlayer
     secret_word.length
   end
 
+  def receive_secret_length(length)
+    @board = Array.new(length)
+    @possible_words = load_dictionary
+    @possible_words = possible_words.select{ |word| word.length == length }
+    @possible_words = possible_words.to_set
+  end
+
   def guess
-    ("a".."z").to_a.sample
+    frequencies = get_letter_freqs
+    guess = frequencies.key(frequencies.values.max)
   end
 
   def check_guess(guess)
@@ -151,22 +176,43 @@ class ComputerPlayer
     secret_word
   end
 
-  def handle_guess_response(guess)
+  def handle_guess_response(guess, guess_indices)
+    if guess_indices.empty?
+      possible_words.select! { |word| !word.include?(guess) }
+    else
+      guess_indices.each { |i| board[i] = guess }
 
+      possible_words.select! do |word|
+        other_indices = (0...board.length).to_a
+        other_indices.select! { |i| !guess_indices.include?(i) }
+        other_indices.none? { |i| word[i] == guess}
+      end
+    end
   end
 
   private
-  attr_reader :secret_word
+  attr_reader :secret_word, :board, :possible_words
 
   def load_dictionary
     File.readlines(DICT_FILE).map(&:chomp)
   end
 
+  def get_letter_freqs
+    letter_freqs = Hash.new(0)
+    possible_words.each do |word|
+      word.chars.each_with_index do |char, i|
+        next unless board[i].nil?
+        letter_freqs[char] += 1
+      end
+    end
+
+    letter_freqs
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
   hum = HumanPlayer.new
   comp = ComputerPlayer.new
-  game = Hangman.new(hum, comp)
+  game = Hangman.new(comp, hum)
   game.run
 end
