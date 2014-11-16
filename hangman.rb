@@ -7,7 +7,7 @@ class HumanPlayer
   def pick_secret_word
   end
 
-  def receive_secret_length
+  def secret_length
   end
 
   def guess
@@ -29,23 +29,29 @@ class ComputerPlayer
     @secret_word = dictionary.sample
   end
 
-  def receive_secret_length
+  def secret_length
+    secret_word.length
   end
 
   def guess
   end
 
-  def check_guess
+  def check_guess(guess)
+    secret_word.include?(guess)
   end
 
+  def return_guess_indices(gues)
+    (0...secret_word.length).select { |i| secret_word[i] == guess }
   def reveal_word
+    secret_word
   end
 
-  def handle_guess_response
+  def handle_guess_response(guess)
+
   end
 
   private
-  attr_writer :secret_word
+  attr_reader :secret_word
 
   def load_dictionary
     File.readlines(DICT_FILE).map(&:chomp)
