@@ -20,7 +20,8 @@ class Hangman
     if won?
       puts "You did it! You guessed '#{render_board}'"
     else
-     puts "You couldn't even get an easy word like '#{master.reveal_word}'. Shame on you."
+     word = master.reveal_word(board_to_regexp)
+     puts "You couldn't even get an easy word like '#{word}'. Shame on you."
    end
   end
 
@@ -46,6 +47,12 @@ class Hangman
 
   def render_board
     board.map { |letter| letter.nil? ? "_" : letter }.join("")
+  end
+
+  def board_to_regexp
+    pattern = board.map { |letter| letter.nil? ? "\\w" : letter}.join("")
+    pattern = "\\A#{pattern}\\z"
+    Regexp.new(pattern)
   end
 
 end
@@ -101,6 +108,20 @@ class HumanPlayer
     end
   end
 
+  def reveal_word(pattern)
+    puts "What is your word?"
+
+    begin
+      word = gets.chomp
+      raise "Improper word" unless word =~ pattern
+    rescue
+      puts "Word doesn't match current board. Please input again"
+      retry
+    end
+
+    word
+  end
+
   def handle_guess_response
   end
 
@@ -119,13 +140,14 @@ class ComputerPlayer
   end
 
   def guess
+    ("a".."z").to_a.sample
   end
 
   def check_guess(guess)
     (0...secret_word.length).select { |i| secret_word[i] == guess }
   end
 
-  def reveal_word
+  def reveal_word(pattern)
     secret_word
   end
 
@@ -145,6 +167,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   hum = HumanPlayer.new
   comp = ComputerPlayer.new
-  game = Hangman.new(comp, hum)
+  game = Hangman.new(hum, comp)
   game.run
 end
