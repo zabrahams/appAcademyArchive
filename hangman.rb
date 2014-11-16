@@ -11,9 +11,26 @@ class HumanPlayer
   end
 
   def guess
+    puts "Please make a guess!"
+    begin
+      guess = gets.chomp.downcase
+
+      raise "Error - Input Too long!" unless guess.length == 1
+      raise "Error - Input Not a Letter" unless ("a".."z").include?(guess)
+
+      guess
+
+    rescue Exception => err
+      puts err.message
+      puts "Please try your input again."
+      retry
+    end
   end
 
   def check_guess
+  end
+
+  def return_guess_indices
   end
 
   def handle_guess_response
@@ -42,6 +59,8 @@ class ComputerPlayer
 
   def return_guess_indices(gues)
     (0...secret_word.length).select { |i| secret_word[i] == guess }
+  end
+
   def reveal_word
     secret_word
   end
