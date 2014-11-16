@@ -25,10 +25,15 @@ class Hangman
   end
 
   def play_turn
-    puts "#{render_board}    Turn: #{current_turn + 1}"
+    puts "#{render_board}    Guesses Left: #{MAX_TURNS - current_turn}"
     guess = guesser.guess
-    update_board(guess, master.check_guess(guess))
-    self.current_turn += 1
+    guess_indices = master.check_guess(guess)
+
+    if guess_indices.empty?
+      self.current_turn += 1
+    else
+      update_board(guess, guess_indices)
+    end
   end
 
   def won?
@@ -48,9 +53,17 @@ end
 class HumanPlayer
 
   def pick_secret_word
+    puts "Please come up with a secret word! It does have to be a real word"
   end
 
   def secret_length
+   puts "How many letter-occurences are in your secret word?"
+   begin
+     number_of_letters = Integer(gets.chomp)
+   rescue
+     puts "Please enter an integer!"
+     retry
+   end
   end
 
   def guess
@@ -70,10 +83,22 @@ class HumanPlayer
     end
   end
 
-  def check_guess
-  end
+  def check_guess(guess)
+    puts "The other player guessed #{guess}."
+    puts "Please write the locations in the word where #{guess} is found"
+    puts "separated by commas. (Like '0,1,5')  Leave the line blank if #{guess}"
+    puts "isn't in the word."
 
-  def guess_indices
+    begin
+      letter_indices = gets.chomp.split(",").uniq
+      letter_indices.map { |index| Integer(index) }
+      # need to raise exception is any integer is higher than secret_word
+      # length.  But it involves accessing secret word length from here...
+      # Maybe pass it to guess?
+    rescue
+      puts "Improper input format! Try again!"
+      retry
+    end
   end
 
   def handle_guess_response
