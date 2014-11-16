@@ -211,8 +211,10 @@ class ComputerPlayer
 end
 
 if __FILE__ == $PROGRAM_NAME
-  hum = HumanPlayer.new
-  comp = ComputerPlayer.new
-  game = Hangman.new(comp, hum)
-  game.run
+  puts "Is the master (1) human (2)the computer?"
+  master = Integer(gets.chomp) == 1 ? HumanPlayer.new : ComputerPlayer.new
+  puts "Is the guesser (1) human (2)the computer?"
+  guesser = Integer(gets.chomp) == 1 ? HumanPlayer.new : ComputerPlayer.new
+  hang_game = Hangman.new(master, guesser)
+  hang_game.run
 end
