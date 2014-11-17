@@ -2,6 +2,7 @@ require "./tile"
 
 class Board
 
+  NUM_BOMBS = 10
   HEIGHT = 9
   WIDTH = 9
   NEIGHBORS = [ [-1, -1],
@@ -47,7 +48,7 @@ class Board
 
   def seed_board
     placed = 0
-    while placed < 10
+    while placed < NUM_BOMBS
       tile = @board.flatten.sample
       unless tile.bombed
         tile.bomb
@@ -64,9 +65,11 @@ class Board
           rendered_board << "F "
         elsif !square.revealed
           rendered_board << "* "
+        elsif square.bombed
+          rendered_board << "X "
         else
           num_bombs = square.neighbor_bomb_count
-          num_bombs == 0 ? (rendered_board << "_ ") : (rendered_board << "#{num_bombs} ")
+          num_bombs == 0 ? (rendered_board << "  ") : (rendered_board << "#{num_bombs} ")
         end
       end
       rendered_board << "\n"

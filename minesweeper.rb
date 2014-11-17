@@ -23,7 +23,10 @@ class Minesweeper
         when "f"
           @board[x,y].mark
         when "r"
-          break if lose?(x, y)
+          if lose?(x, y)
+            puts "That was a bomb. You're the worst. We're all dead and it's your fault."
+            break
+          end
           reveal_neighbors(@board[x, y])
         when "h"
           help
@@ -39,6 +42,11 @@ class Minesweeper
         print ">"
         retry
       end
+
+      if won?
+        puts "You Won!!!!!!"
+        break
+      end
     end
   end
 
@@ -48,6 +56,27 @@ class Minesweeper
   private
 
   def won?
+    flag_and_reveal = count_flagged_and_revealed
+    flagged = flag_and_reveal[:flagged]
+    revealed = flag_and_reveal[:revealed]
+
+    flagged == Board::NUM_BOMBS &&
+      (flagged + revealed) == (Board::WIDTH*Board::HEIGHT)
+  end
+
+  def count_flagged_and_revealed
+    flag_and_reveal = {:flagged => 0, :revealed => 0}
+    Board::HEIGHT.times do |y|
+      Board::WIDTH.times do |x|
+        if @board[x, y].marked
+          flag_and_reveal[:flagged] += 1
+        elsif @board[x, y].revealed
+          flag_and_reveal[:revealed] += 1
+        end
+      end
+    end
+
+    flag_and_reveal
   end
 
   def help
@@ -60,6 +89,7 @@ class Minesweeper
 
   def reveal_neighbors(tile)
     tile.reveal
+
     return if tile.neighbor_bomb_count > 0
 
     tile.neighbors.each do |neighbor|
