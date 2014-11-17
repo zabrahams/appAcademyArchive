@@ -21,6 +21,10 @@ class Tile
     @marked = true
   end
 
+  def unmark
+    @marked = false
+  end
+
   def neighbor_bomb_count
     self.neighbors.select(&:bombed).count
   end
