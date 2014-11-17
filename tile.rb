@@ -1,6 +1,6 @@
 class Tile
 
-  attr_reader :bombed
+  attr_reader :bombed, :revealed, :marked
 
   def initialize
     @bombed = false
@@ -8,8 +8,16 @@ class Tile
     @marked = false
   end
 
+  def bomb
+    @bombed = true
+  end
+
   def reveal
     @revealed = true
+  end
+
+  def mark
+    @marked = true
   end
 
   def neighbors
@@ -20,5 +28,6 @@ class Tile
     bomb_count += 1 if self.neighbors.bombed
     bomb_count
   end
+
 
 end
