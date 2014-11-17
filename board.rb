@@ -15,7 +15,7 @@ class Board
 
   def make_board
     @board = Array.new(HEIGHT) { Array.new(WIDTH) { Tile.new } }
-    #get_neighbors
+    get_neighbors
     seed_board
   end
 
@@ -50,5 +50,23 @@ class Board
         placed += 1
       end
     end
+  end
+
+  def render_board
+    rendered_board = ""
+    @board.each do |row|
+      row.each do |square|
+        if square.marked && !square.revealed
+          rendered_board << "F "
+        elsif !square.revealed
+          rendered_board << "* "
+        else
+          num_bombs = square.neighbor_bomb_count
+          num_bombs == 0 ? (rendered_board << "_ ") : (rendered_board << "#{num_bombs} ")
+        end
+      end
+      rendered_board << "\n"
+    end
+    puts rendered_board
   end
 end
