@@ -15,7 +15,7 @@ class Minesweeper
 
       begin
         input = gets.chomp
-        coords = /[fr]\((\d*)\,(\d*)\)/.match(input)
+        coords = /[fru]\((\d*)\,(\d*)\)/.match(input)
         x, y = coords[1].to_i, coords[2].to_i unless coords.nil?
         system "clear"
 
@@ -29,6 +29,8 @@ class Minesweeper
           help
         when "q"
           break
+        when "u"
+          @board[x,y].unmark
         else
           raise "Invalid input"
         end
@@ -53,6 +55,7 @@ class Minesweeper
     puts "* - Unmarked tile"
     puts "r(coordinates) - reveals a tile"
     puts "f(coordinates) - flags a tile"
+    puts "u(coordinates) - unmarks a tile"
   end
 
   def reveal_neighbors(tile)
