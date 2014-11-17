@@ -14,15 +14,14 @@ class Board
                 [1, 1]]
 
   def make_board
-    @board = Array.new(HEIGHT) { Array.new(WIDTH, Tile.new) }
+    @board = Array.new(HEIGHT) { Array.new(WIDTH) { Tile.new } }
   end
 
   def initialize
   end
 
-  def [](pos)
-    x,y = pos
-    @board[x][y]
+  def [](x, y)
+    @board[y][x]
   end
 
   private
@@ -30,13 +29,12 @@ class Board
   def get_neighbors
     HEIGHT.times do |y|
       WIDTH.times do |x|
-        neighbors = []
         NEIGHBORS.each do |diff|
           dx, dy = diff
-          next if self[x + dx, y + dy].nil?
-          neighbors << self[x + dx, y + dy]
+
+          next unless ((x + dx).between?(0, WIDTH - 1) && (y + dy).between?(0, HEIGHT - 1))
+          self[x,y].add_neighbor(self[x + dx, y + dy])
         end
-        neighbors.each { |neighbor| tile.add_neighbor(neighbor) }
       end
     end
   end
