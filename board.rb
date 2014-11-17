@@ -58,8 +58,9 @@ class Board
   end
 
   def render_board
-    rendered_board = ""
-    @board.each do |row|
+    rendered_board = "  0 1 2 3 4 5 6 7 8\n"
+    @board.each_with_index do |row, index|
+      rendered_board << "#{index} "
       row.each do |square|
         if square.marked && !square.revealed
           rendered_board << "F "
