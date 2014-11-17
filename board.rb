@@ -26,6 +26,10 @@ class Board
     @board[y][x]
   end
 
+  def display
+    puts render_board
+  end
+
   private
 
   def get_neighbors
@@ -67,6 +71,6 @@ class Board
       end
       rendered_board << "\n"
     end
-    puts rendered_board
+    rendered_board
   end
 end
