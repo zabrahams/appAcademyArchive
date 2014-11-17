@@ -1,12 +1,24 @@
 class Tile
 
-  attr_reader :bombed, :revealed, :marked, :neighbors
+  attr_reader :neighbors
 
   def initialize
     @bombed = false
     @revealed = false
-    @marked = false
+    @flagged = false
     @neighbors = []
+  end
+
+  def bombed?
+    @bombed
+  end
+
+  def revealed?
+    @revealed
+  end
+
+  def flagged?
+    @flagged
   end
 
   def bomb
@@ -15,24 +27,32 @@ class Tile
 
   def reveal
     @revealed = true
-    @marked = false
+    @flagged = false
   end
 
-  def mark
-    @marked = true
+  def flag
+    @flagged = true
   end
 
-  def unmark
-    @marked = false
+  def unflag
+    @flagged = false
   end
 
   def neighbor_bomb_count
-    self.neighbors.select(&:bombed).count
+    self.neighbors.select(&:bombed?).count
   end
 
   def add_neighbor(neighbor)
     @neighbors << neighbor unless neighbors.include?(neighbor)
   end
 
+  def reveal_neighbors
+    reveal
 
+    return if neighbor_bomb_count > 0
+
+    neighbors.each do |neighbor|
+      reveal_neighbors(neighbor) unless neighbor.flagged? || neighbor.revealed?
+    end
+  end
 end
