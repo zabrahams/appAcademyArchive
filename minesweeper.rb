@@ -13,34 +13,26 @@ class Minesweeper
       puts "What is your move? (h for help, and q for quit)"
       print ">"
 
-      begin
-        input = gets.chomp
-        coords = /[fru]\((\d*)\,(\d*)\)/.match(input)
-        x, y = coords[1].to_i, coords[2].to_i unless coords.nil?
-        system "clear"
+      input = gets.chomp
+      coords = /[fru]\((\d*)\,(\d*)\)/.match(input)
+      x, y = coords[1].to_i, coords[2].to_i unless coords.nil?
+      system "clear"
 
-        case input[0]
-        when "f"
-          @board[x,y].mark
-        when "r"
-          if lose?(x, y)
-            puts "That was a bomb. You're the worst. We're all dead and it's your fault."
-            break
-          end
-          reveal_neighbors(@board[x, y])
-        when "h"
-          help
-        when "q"
+      case input[0]
+      when "f"
+        @board[x,y].mark
+      when "r"
+        if lose?(x, y)
+          puts "That was a bomb. You're the worst. We're all dead and it's your fault."
           break
-        when "u"
-          @board[x,y].unmark
-        else
-          raise "Invalid input"
         end
-      rescue
-        puts "Invalid input!"
-        print ">"
-        retry
+        reveal_neighbors(@board[x, y])
+      when "h"
+        help
+      when "q"
+        break
+      when "u"
+        @board[x,y].unmark
       end
 
       if won?
