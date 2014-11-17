@@ -15,6 +15,7 @@ class Tile
 
   def reveal
     @revealed = true
+    @marked = false
   end
 
   def mark
