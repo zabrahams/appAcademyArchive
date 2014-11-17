@@ -23,7 +23,8 @@ class Minesweeper
         when "f"
           @board[x,y].mark
         when "r"
-          @board[x,y].reveal
+          break if lose?(x, y)
+          reveal_neighbors(@board[x, y])
         when "h"
           help
         when "q"
@@ -59,7 +60,7 @@ class Minesweeper
     return if tile.neighbor_bomb_count > 0
 
     tile.neighbors.each do |neighbor|
-      reveal_neighbors(neighbor) unless neighbor.marked
+      reveal_neighbors(neighbor) unless neighbor.marked || neighbor.revealed
     end
   end
 

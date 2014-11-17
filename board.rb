@@ -47,7 +47,7 @@ class Board
 
   def seed_board
     placed = 0
-    while placed <= 10
+    while placed < 10
       tile = @board.flatten.sample
       unless tile.bombed
         tile.bomb
