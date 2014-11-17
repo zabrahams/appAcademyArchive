@@ -40,7 +40,7 @@ class Minesweeper
         puts "That was a bomb. You're the worst. We're all dead and it's your fault."
         @lost = true
       end
-      reveal_neighbors(@board[x, y])
+      @board[x, y].reveal_neighbors
     when "h"
       help
     when "q"
@@ -74,15 +74,7 @@ class Minesweeper
     puts "u(coordinates) - unmarks a tile"
   end
 
-  def reveal_neighbors(tile) #tile method
-    tile.reveal
 
-    return if tile.neighbor_bomb_count > 0
-
-    tile.neighbors.each do |neighbor|
-      reveal_neighbors(neighbor) unless neighbor.flagged? || neighbor.revealed?
-    end
-  end
 
   def lose?(x, y)
     @board[x, y].bombed?

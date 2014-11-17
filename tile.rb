@@ -55,4 +55,17 @@ class Tile
       reveal_neighbors(neighbor) unless neighbor.flagged? || neighbor.revealed?
     end
   end
+
+  def render
+    if flagged? && !revealed?
+      "F "
+    elsif !revealed?
+      "* "
+    elsif bombed?
+      "X "
+    else
+      num_bombs = neighbor_bomb_count
+      num_bombs == 0 ? "  " : "#{num_bombs} "
+    end
+  end
 end
