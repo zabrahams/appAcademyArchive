@@ -28,12 +28,13 @@ class Board
   private
 
   def get_neighbors
-    @board.each_with_index do |row, y|
-      row.each_with_index do |tile, x|
+    HEIGHT.times do |y|
+      WIDTH.times do |x|
         neighbors = []
-        NEIGHBORS.each do |el|
-          next if @board[x + el[0]][y + el[1]].nil?
-          neighbors << @board[[x + el[0]][y + el[1]]
+        NEIGHBORS.each do |diff|
+          dx, dy = diff
+          next if self[x + dx, y + dy].nil?
+          neighbors << self[x + dx, y + dy]
         end
         neighbors.each { |neighbor| tile.add_neighbor(neighbor) }
       end
