@@ -26,7 +26,7 @@ class Tile
   end
 
   def add_neighbor(neighbor)
-    @neighbors << neighbor
+    @neighbors << neighbor unless neighbors.include?(neighbor)
   end
 
 

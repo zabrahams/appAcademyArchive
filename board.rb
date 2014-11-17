@@ -15,6 +15,8 @@ class Board
 
   def make_board
     @board = Array.new(HEIGHT) { Array.new(WIDTH) { Tile.new } }
+    #get_neighbors
+    seed_board
   end
 
   def initialize
@@ -35,6 +37,17 @@ class Board
           next unless ((x + dx).between?(0, WIDTH - 1) && (y + dy).between?(0, HEIGHT - 1))
           self[x,y].add_neighbor(self[x + dx, y + dy])
         end
+      end
+    end
+  end
+
+  def seed_board
+    placed = 0
+    while placed <= 10
+      tile = @board.flatten.sample
+      unless tile.bombed
+        tile.bomb
+        placed += 1
       end
     end
   end
