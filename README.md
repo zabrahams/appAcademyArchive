@@ -10,6 +10,5 @@ To run:
 
 TODO  
 
-* Keep track of time taken.
 * Add high score list.
 * Let players customize the board.
