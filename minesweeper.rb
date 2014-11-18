@@ -10,6 +10,7 @@ class Minesweeper
 
   def play
     until @over
+      system "clear"
       @board.display
       input = get_input
       handle_input(input)
@@ -27,7 +28,6 @@ class Minesweeper
     input = gets.chomp
     coords = /[fru]\((\d*)\,(\d*)\)/.match(input)
     x, y = coords[1].to_i, coords[2].to_i unless coords.nil?
-    system "clear"
     [input[0], x, y]
   end
 
@@ -74,13 +74,14 @@ class Minesweeper
 
   def help
     puts "F - flagged tile"
-    puts "* - Unmarked tile"
+    puts "* - Unflaged tile"
     puts "r(coordinates) - reveals a tile"
     puts "f(coordinates) - flags a tile"
-    puts "u(coordinates) - unmarks a tile"
+    puts "u(coordinates) - unflags a tile"
     puts "q to quit"
     puts "s to save a game in progress"
     puts "c to continue a saved game"
+    gets
   end
 
 
@@ -119,4 +120,9 @@ class Minesweeper
     end
   end
 
+end
+
+if $PROGRAM_NAME == __FILE__
+  mine = Minesweeper.new
+  mine.play
 end
