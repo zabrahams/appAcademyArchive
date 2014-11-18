@@ -1,4 +1,5 @@
 require "./board"
+require "yaml"
 
 class Minesweeper
 
@@ -48,6 +49,10 @@ class Minesweeper
       @over = true
     when "u"
       @board[x,y].unflag
+    when "s"
+      save_game
+    when "c"
+      load_game
     end
   end
 
@@ -73,12 +78,28 @@ class Minesweeper
     puts "r(coordinates) - reveals a tile"
     puts "f(coordinates) - flags a tile"
     puts "u(coordinates) - unmarks a tile"
+    puts "q to quit"
+    puts "s to save a game in progress"
+    puts "c to continue a saved game"
   end
 
 
 
   def lose?(x, y)
     @board[x, y].bombed?
+  end
+
+  def save_game
+    game_in_progress = @board.to_yaml
+    File.write("saved_game.sav", game_in_progress)
+    puts "Game saved.  Exiting."
+    @over = true
+  end
+
+  def load_game
+    game_in_progress = File.read("saved_game.sav")
+    @board = YAML::load(game_in_progress)
+    puts "Game loaded!"
   end
 
 end
