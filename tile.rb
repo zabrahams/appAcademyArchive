@@ -1,5 +1,14 @@
 class Tile
 
+  NEIGHBORS = [ [-1, -1],
+              [-1, 0],
+              [-1, 1],
+              [0, -1],
+              [0, 1],
+              [1, -1],
+              [1, 0],
+              [1, 1]]
+
   attr_reader :neighbors
 
   def initialize
@@ -52,7 +61,7 @@ class Tile
     return if neighbor_bomb_count > 0
 
     neighbors.each do |neighbor|
-      reveal_neighbors(neighbor) unless neighbor.flagged? || neighbor.revealed?
+      neighbor.reveal_neighbors unless neighbor.flagged? || neighbor.revealed?
     end
   end
 
@@ -68,4 +77,20 @@ class Tile
       num_bombs == 0 ? "  " : "#{num_bombs} "
     end
   end
+
+  def get_neighbors(pos, board)
+    height, width = board.class::HEIGHT, board.class::WIDTH
+    x, y = pos
+    NEIGHBORS.each do |diff|
+      dx, dy = diff
+
+      next unless ((x + dx).between?(0, width - 1) &&
+                   (y + dy).between?(0, height - 1))
+
+      self.add_neighbor(board[x + dx, y + dy])
+    end
+  end
+
+
+
 end

@@ -4,11 +4,11 @@ class Minesweeper
 
   def initialize
     @board = Board.new
-    @lost = false
+    @over = false
   end
 
   def play
-    until @lost
+    until @over
       @board.display
       input = get_input
       handle_input(input)
@@ -34,19 +34,20 @@ class Minesweeper
     char, x, y = input
     case char
     when "f"
-      @board[x,y].mark
+      @board[x,y].flag
     when "r"
       if lose?(x, y)
         puts "That was a bomb. You're the worst. We're all dead and it's your fault."
-        @lost = true
+        @over = true
       end
       @board[x, y].reveal_neighbors
     when "h"
       help
     when "q"
-      @lost = true
+      puts "Quiting"
+      @over = true
     when "u"
-      @board[x,y].unmark
+      @board[x,y].unflag
     end
   end
 
@@ -61,7 +62,7 @@ class Minesweeper
     revealed = @board.count_revealed
 
     flagged == Board::NUM_BOMBS &&
-      (flagged + revealed) == (Board::WIDTH * Boasrd::HEIGHT)
+      (flagged + revealed) == (Board::WIDTH * Board::HEIGHT)
   end
 
 
