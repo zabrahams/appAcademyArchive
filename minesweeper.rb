@@ -6,16 +6,20 @@ class Minesweeper
   def initialize
     @board = Board.new
     @over = false
+    @start_time = 0
   end
 
   def play
+    @start_time = Time.now
     until @over
       system "clear"
       @board.display
       input = get_input
       handle_input(input)
       if won?
+        time  = ((@start_time - Time.now) + @board.saved_time).round(0)
         puts "You Won!!!!!!"
+        puts "You took #{time} seconds."
         break
       end
     end
@@ -81,10 +85,9 @@ class Minesweeper
     puts "q to quit"
     puts "s to save a game in progress"
     puts "c to continue a saved game"
+    puts "Press enter to continue:"
     gets
   end
-
-
 
   def lose?(x, y)
     @board[x, y].bombed?
@@ -93,6 +96,8 @@ class Minesweeper
   def save_game
     puts "Please input a filename:"
     filename = gets.chomp
+
+    @board.saved_time = @board.saved_time + (Time.now - @start_time) 
     game_in_progress = @board.to_yaml
     File.write("#{filename}.sav", game_in_progress)
     puts "Game saved.  Exiting."

@@ -6,8 +6,11 @@ class Board
   HEIGHT = 9
   WIDTH = 9
 
+  attr_accessor :saved_time
 
   def initialize
+    @saved_time = 0
+
     @board = Array.new(HEIGHT) { Array.new(WIDTH) { Tile.new } }
     HEIGHT.times do |y|
       WIDTH.times do |x|
