@@ -90,16 +90,33 @@ class Minesweeper
   end
 
   def save_game
+    puts "Please input a filename:"
+    filename = gets.chomp
     game_in_progress = @board.to_yaml
-    File.write("saved_game.sav", game_in_progress)
+    File.write("#{filename}.sav", game_in_progress)
     puts "Game saved.  Exiting."
     @over = true
   end
 
   def load_game
-    game_in_progress = File.read("saved_game.sav")
-    @board = YAML::load(game_in_progress)
-    puts "Game loaded!"
+    puts "Current saved games are:"
+    save_files = Dir.glob("*.sav")
+    puts save_files
+
+    puts "Which would you like to load?"
+    begin
+      file_name = gets.chomp
+      raise "File not found!" if (!save_files.include?(file_name)) && (file_name != "")
+    rescue
+      puts "File not found! Leave a blank line to cancel loading."
+      retry
+    end
+
+    unless file_name == ""
+      game_in_progress = File.read("saved_game.sav")
+      @board = YAML::load(game_in_progress)
+      puts "Game loaded!"
+    end
   end
 
 end
