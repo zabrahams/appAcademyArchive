@@ -1,5 +1,3 @@
-require './piece.rb'
-
 class Board
 
   BOARD_SIZE = 8
@@ -91,6 +89,20 @@ class Board
 
   def empty?(pos)
     self[pos].nil?
+  end
+
+  def over?
+    pieces(:white).empty? or pieces(:black).empty?
+  end
+
+  def winner
+    if pieces(:white).empty?
+      :black
+    elsif pieces(:black).empty?
+      :white
+    else
+      nil
+    end
   end
 
   def make_board(position)
