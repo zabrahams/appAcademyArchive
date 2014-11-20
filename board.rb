@@ -1,4 +1,4 @@
-require 'piece.rb'
+require './piece.rb'
 
 class Board
 
@@ -11,25 +11,35 @@ class Board
     (0...BOARD_SIZE).each do |x|
       (0...ROWS_OF_PIECES).each do |y|
         white_square = [x, y]
-        black_square = [x, BOARDSIZE - y]
-        position[:white] << white_square if Board.is_dark(white_square)
-        position[:black] << black_square if Board.is_dark(black_square)
+        black_square = [x, BOARD_SIZE - y - 1]
+        position[:white] << white_square if Board.is_dark?(white_square)
+        position[:black] << black_square if Board.is_dark?(black_square)
       end
     end
 
     position
   end
 
-  def self.is_dark(pos)
+  def self.is_dark?(pos)
     x, y = pos
     (x + y) % 2 == 0
   end
 
-  def initialize
+  def initialize(position = Board.starting_position)
+    @grid = make_board(position)
   end
 
   def make_board(position)
-    @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
+    grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
+    position.each do |color, squares|
+      squares.each do |square|
+        x, y = square
+        p "x: #{x} y: #{y}"
+        grid[y][x] = Piece.new(square, color, self)
+      end
+    end
 
+    grid
+  end
 
 end
