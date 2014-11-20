@@ -19,6 +19,7 @@ class Piece
   def perform_slide(end_pos)
     if possible_slides.include?(end_pos)
       board.slide(pos, end_pos)
+      promote if should_promote?
       true
     else
       false
@@ -33,6 +34,7 @@ class Piece
       jump_pos = add_pos(pos, [dx, dy])
 
       board.jump(pos, jump_pos, end_pos)
+      promote if should_promote?
       true
     else
       false
@@ -55,12 +57,20 @@ class Piece
     end
   end
 
+  def perform_moves(seq)
+    unless valid_move_seq?(seq)
+      raise IvalidMoveError.new "Not a valid move sequence."
+    end
+
+    perform_moves!(seq)
+  end
+
   def valid_move_seq?(seq)
     test_board = board.dup
     test_piece = test_board[pos]
 
     begin
-      test_piece.perform_moves!(seq)
+      test_piece.perform_moves!(seq.dup)
     rescue InvalidMoveError
       false
     else
@@ -114,9 +124,17 @@ class Piece
   end
 
   def should_promote?
+    return false if king
+
+    y = pos[1]
+    y == ((Board::BOARD_SIZE - 1) / 2.0) +
+         (((Board::BOARD_SIZE - 1)/ 2.0) *
+         @directions.first)
   end
 
   def promote
+    @king = true
+    @directions = [UP, DOWN]
   end
 
   def render
