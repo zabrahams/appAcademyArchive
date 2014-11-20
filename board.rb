@@ -25,6 +25,10 @@ class Board
     (x + y) % 2 == 0
   end
 
+  def self.on_board?(pos)
+    pos.all? { |coord| coord.between?(0, BOARD_SIZE - 1) }
+  end
+
   def initialize(position = Board.starting_position)
     @grid = make_board(position)
   end
@@ -34,12 +38,22 @@ class Board
     @grid[y][x]
   end
 
+  def []=(pos, piece)
+    x, y = pos
+    @grid[y][x] = piece
+    piece.pos = pos if piece
+    # should I also set pieces original loc to nil here?
+  end
+
+  def empty?(pos)
+    self[pos].nil?
+  end
+
   def make_board(position)
     grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     position.each do |color, squares|
       squares.each do |square|
         x, y = square
-        p "x: #{x} y: #{y}"
         grid[y][x] = Piece.new(square, color, self)
       end
     end
