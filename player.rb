@@ -1,6 +1,9 @@
 class Player
+
   PIECE_NAME = /\A[a-z]\d\z/
   COMMAND = /\Aq\z/
+
+  attr_accessor :color
 
   def get_input
 
@@ -38,7 +41,7 @@ class Player
   def parse(input)
     letters = ("a".."z").to_a
     x = letters.index(input[0])
-    y = input[1].to_i + 1
+    y = input[1].to_i - 1
 
     [x, y]
   end
