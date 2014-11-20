@@ -6,6 +6,8 @@ class Piece
   DOWN = -1
   RIGHT = 1
   LEFT = -1
+  SLIDE = 1
+  JUMP = 2
 
   attr_reader :color, :directions, :king, :board
   attr_accessor :pos
@@ -19,7 +21,9 @@ class Piece
   end
 
   def perform_slide(end_pos)
-    if possible_slides.include?(end_pos)
+    can_slide_proc = Proc.new { |square| can_slide?(square) }
+
+    if possible_moves(SLIDE, &can_slide_proc).include?(end_pos)
       board.slide(pos, end_pos)
       promote if should_promote?
       true
@@ -29,11 +33,11 @@ class Piece
   end
 
   def perform_jump(end_pos)
+    can_jump_proc = Proc.new { |square| can_jump?(square) }
+
     x, y = pos
-    if possible_jumps.include?(end_pos)
-      dx = (end_pos[0] - x)/2
-      dy = (end_pos[1] - y)/2
-      jump_pos = add_pos(pos, [dx, dy])
+    if possible_moves(JUMP, &can_jump_proc).include?(end_pos)
+      jump_pos = square_between(pos, end_pos)
 
       board.jump(pos, jump_pos, end_pos)
       promote if should_promote?
@@ -80,41 +84,22 @@ class Piece
     end
   end
 
-  def possible_slides
-    x, y = pos
+  def possible_moves(multiplier, &requirement)
     possible_slides = []
 
     directions.each do |dy|
       [LEFT, RIGHT].each do |dx|
-        new_square = add_pos(pos, [dx, dy])
-        possible_slides << new_square if can_slide?(new_square)
+        new_square = add_pos(pos, [multiplier * dx, multiplier * dy])
+        possible_slides << new_square if requirement.call(new_square)
       end
     end
 
     possible_slides
   end
 
-  def possible_jumps
+  def can_jump?(new_square)
+    jumped_square = square_between(pos, new_square)
 
-    # refactor into a single possible_moves method that takes the
-    # relevant condition as a proc
-
-    x, y = pos
-    possible_jumps = []
-
-    directions.each do |dy|
-      [LEFT, RIGHT].each do |dx|
-        jumped_square = add_pos(pos, [dx, dy])
-        new_square = add_pos(jumped_square, [dx, dy])
-
-        possible_jumps << new_square if can_jump?(jumped_square, new_square)
-      end
-    end
-
-    possible_jumps
-  end
-
-  def can_jump?(jumped_square, new_square)
     (Board.on_board?(new_square)) &&
     (board.empty?(new_square)) &&
     (jumped_piece = board[jumped_square]) &&
@@ -154,6 +139,12 @@ class Piece
 
   def add_pos(pos1, pos2)
     [pos1[0] + pos2[0], pos1[1] + pos2[1]]
+  end
+
+  def square_between(pos1, pos2)
+    dx = (pos2[0] - pos1[0])/2
+    dy = (pos2[1] - pos1[1])/2
+    add_pos(pos1, [dx, dy])
   end
 
 end

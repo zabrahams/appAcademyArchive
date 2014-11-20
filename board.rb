@@ -32,6 +32,9 @@ class Board
   end
 
   def [](pos)
+    unless pos.all? { |coord| coord.between?(0, Board::BOARD_SIZE)}
+      raise InvalidMoveError.new "Position off board."
+    end
     x, y = pos
     @grid[y][x]
   end

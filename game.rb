@@ -13,7 +13,7 @@ class Game
 
   def play
     until board.over?
-      inital_display
+      initial_display
 
       begin
         start_prompt
