@@ -45,6 +45,17 @@ class Board
     # should I also set pieces original loc to nil here?
   end
 
+  def slide(start_pos, end_pos)
+    self[end_pos] = self[start_pos]
+    self[start_pos] = nil
+  end
+
+  def jump(start_pos, jump_pos, end_pos)
+    self[end_pos] = self[start_pos]
+    self[start_pos] = nil
+    self[jump_pos] = nil
+  end
+
   def empty?(pos)
     self[pos].nil?
   end

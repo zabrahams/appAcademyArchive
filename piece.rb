@@ -16,30 +16,89 @@ class Piece
     @directions = (color == :white ? [UP] : [DOWN])
   end
 
-  def perform_slide(pos)
+  def perform_slide(end_pos)
+    if possible_slides.include?(end_pos)
+      board.slide(pos, end_pos)
+      true
+    else
+      false
   end
 
-  def perform_jump
+  def perform_jump(end_pos)
+    x, y = pos
+    if possible_jumps.include?(end_pos)
+      dx = (end_pos[0] - x)/2
+      dy = (end_pos[1] - y)/2
+      jump_pos = add_pos(pos, [dx, dy])
+
+      board.jump(pos, jump_pos, end_pos)
+      true
+    else
+      false
+    end
   end
 
-  def move_diffs
+  def perform_moves!(sequence)
+    move = sequence.shift
 
+    if sequence.empty?
+      unless perform_slide(move) || perform_jump(move)
+        raise InvalidMoveError "Final move of sequence is invalid."
+      end
+    else
+      sequence(unshift(move))
+      until sequence.empty?
+        move = sequence.shift
+        unless perform_jump(move)
+          raise InvalidMoveError "Sequence contains an invalid move."
+        end
+      end
+    end
   end
 
-  def possible_slides(move_type)
+  def possible_slides
     x, y = pos
     possible_slides = []
 
     directions.each do |dy|
       [LEFT, RIGHT].each do |dx|
-        potential_move = add_pos(pos, [dx, dy])
-        if Board.on_board?(potential_move) && board.empty?(potential_move)
-          poss_slides << potential_move
-        end
+        new_square = add_pos(pos, [dx, dy])
+        possible_slides << new_square if can_slide?(new_square)
       end
     end
 
     possible_slides
+  end
+
+  def possible_jumps
+
+    # refactor into a single possible_moves method that takes the
+    # relevant condition as a proc
+
+    x, y = pos
+    possible_jumps = []
+
+    directions.each do |dy|
+      [LEFT, RIGHT].each do |dx|
+        jumped_square = add_pos(pos, [dx, dy])
+        new_square = add_pos(jumped_square, [dx, dy])
+
+        possible_jumps << new_square if can_jump?(jumped_square, new_square)
+      end
+    end
+
+    possible_jumps
+  end
+
+  def can_jump?(jumped_square, new_square)
+    (Board.on_board?(new_square)) &&
+    (board.empty?(new_square)) &&
+    (jumped_piece = board[jumped_square]) &&
+    (jumped_piece.color != color)
+  end
+
+  def can_slide?(new_square)
+    Board.on_board?(new_square) && board.empty?(new_square)
   end
 
   def should_promote?
