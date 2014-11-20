@@ -3,6 +3,7 @@ class Piece
   UP = 1
   DOWN = -1
 
+  attr_reader :pos, :color, :directions, :king
 
   def initialize(pos, color, board)
     @pos = pos
@@ -27,5 +28,13 @@ class Piece
   def promote
   end
 
+  def render
+    color == :white ? "X" : "O"
+  end
+
+  def inspect
+    x, y = pos
+    "x: #{x}, y: #{y}, color: #{color}, directions: #{directions}, King: #{king}"
+  end
 
 end

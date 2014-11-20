@@ -29,6 +29,11 @@ class Board
     @grid = make_board(position)
   end
 
+  def [](pos)
+    x, y = pos
+    @grid[y][x]
+  end
+
   def make_board(position)
     grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     position.each do |color, squares|
@@ -40,6 +45,23 @@ class Board
     end
 
     grid
+  end
+
+  def render
+    @grid.reverse.map do |row|
+      row.map do |square|
+        p square
+        square ? " #{square.render} " : " _ "
+      end.join("")
+    end.join("\n")
+  end
+
+  def display
+    puts render
+  end
+
+  def inspect
+    render
   end
 
 end
