@@ -6,7 +6,7 @@ class Piece
 
   def initialize(pos, color, board)
     @pos = pos
-    @color = color
+    @color = color # Maybe raise an error if the wrong color is used...
     @board = board
     @king = false
     @directions = (color == :white ? [UP] : [DOWN])
