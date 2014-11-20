@@ -8,11 +8,11 @@ class Piece
   attr_reader :color, :directions, :king, :board
   attr_accessor :pos
 
-  def initialize(pos, color, board)
+  def initialize(pos, color, board, king)
     @pos = pos
     @color = color # Maybe raise an error if the wrong color is used...
     @board = board
-    @king = false
+    @king = king
     @directions = (color == :white ? [UP] : [DOWN])
   end
 

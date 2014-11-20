@@ -56,14 +56,26 @@ class Board
   end
 
   def dup
-
+    position = self.extract_position
+    Board.new(position)
   end
 
   def extract_position
-    position = {}
-    position[:white] = pieces(:white).map { |piece| piece.pos.dup }
-    position[:black] = pieces(:black).map { |piece| piece.pos.dup }
-    position
+    position = Hash.new { |h, v| h[v] = [] }
+
+    kings = pieces.select { |piece| piece.king }
+    peons = pieces.reject { |piece| piece.king }
+
+    peons.each do |piece|
+      position[piece.color] << piece.pos.dup
+    end
+
+    kings.each do |king|
+      label = (king.color == :white ? :white_king : :black_king)
+      position[label] << king.pos.dup
+    end
+
+  position
   end
 
   def pieces(color = nil)
@@ -85,8 +97,9 @@ class Board
     grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     position.each do |color, squares|
       squares.each do |square|
+        is_king = ([:white, :black].include?(color) ? false : true)
         x, y = square
-        grid[y][x] = Piece.new(square, color, self)
+        grid[y][x] = Piece.new(square, color, self, is_king)
       end
     end
 
