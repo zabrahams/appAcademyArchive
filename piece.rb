@@ -22,6 +22,7 @@ class Piece
       true
     else
       false
+    end
   end
 
   def perform_jump(end_pos)
@@ -39,14 +40,12 @@ class Piece
   end
 
   def perform_moves!(sequence)
-    move = sequence.shift
-
-    if sequence.empty?
-      unless perform_slide(move) || perform_jump(move)
-        raise InvalidMoveError "Final move of sequence is invalid."
+    if sequence.count == 1
+      move = sequence.shift
+      if !perform_slide(move) && !perform_jump(move)
+        raise InvalidMoveError "Sequence consists of an invalid move."
       end
     else
-      sequence(unshift(move))
       until sequence.empty?
         move = sequence.shift
         unless perform_jump(move)
