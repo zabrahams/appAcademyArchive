@@ -119,11 +119,21 @@ class Board
   end
 
   def render
-    @grid.reverse.map do |row|
+    render_str = hori_border
+    switch = true
+
+    @grid.reverse.each_with_index do |row, index|
+      switch = !switch
+      render_row = " #{reverse_index(index)} ".on_light_white <<
       row.map do |square|
-        square ? " #{square.render} " : " _ "
-      end.join("")
-    end.join("\n")
+        switch = !switch
+        square ? " #{square.render} ".checker(switch) : "   ".checker(switch)
+      end.join("") << " #{reverse_index(index)} \n".on_light_white
+
+      render_str << render_row
+    end
+
+    (render_str << hori_border)
   end
 
   def display
@@ -132,6 +142,17 @@ class Board
 
   def inspect
     render
+  end
+
+  def hori_border
+    ("   " << ("A".."Z").to_a[0...Board::BOARD_SIZE].map do |letter|
+      " #{letter} "
+    end.join("") << "   \n").on_light_white
+  end
+
+  def reverse_index(index)
+    reversed = (0..Board::BOARD_SIZE + 1).to_a.reverse
+    reversed.index(index + 1)
   end
 
 end

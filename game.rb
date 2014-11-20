@@ -37,6 +37,7 @@ class Game
           raise InputError.new "You need to input an ending position!" if moves.empty?
         rescue InputError => e
           puts e.message
+          print ">"
           retry
         end
 

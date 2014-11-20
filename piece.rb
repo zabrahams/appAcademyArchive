@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Piece
 
   UP = 1
@@ -138,7 +140,11 @@ class Piece
   end
 
   def render
-    color == :white ? "X" : "O"
+    if king
+      color == :white ? "\y2688".red : "\u2688".magenta
+    else
+      color == :white ? "\u2687".red : "\u2687".magenta
+    end
   end
 
   def inspect
