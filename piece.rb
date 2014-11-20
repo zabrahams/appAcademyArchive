@@ -39,19 +39,32 @@ class Piece
     end
   end
 
-  def perform_moves!(sequence)
-    if sequence.count == 1
-      move = sequence.shift
+  def perform_moves!(seq)
+    if seq.count == 1
+      move = seq.shift
       if !perform_slide(move) && !perform_jump(move)
-        raise InvalidMoveError "Sequence consists of an invalid move."
+        raise InvalidMoveError.new "Sequence consists of an invalid move."
       end
     else
-      until sequence.empty?
-        move = sequence.shift
+      until seq.empty?
+        move = seq.shift
         unless perform_jump(move)
-          raise InvalidMoveError "Sequence contains an invalid move."
+          raise InvalidMoveError.new "Sequence contains an invalid move."
         end
       end
+    end
+  end
+
+  def valid_move_seq?(seq)
+    test_board = board.dup
+    test_piece = test_board[pos]
+
+    begin
+      test_piece.perform_moves!(seq)
+    rescue InvalidMoveError
+      false
+    else
+      true
     end
   end
 
