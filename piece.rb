@@ -59,7 +59,7 @@ class Piece
 
   def perform_moves(seq)
     unless valid_move_seq?(seq)
-      raise IvalidMoveError.new "Not a valid move sequence."
+      raise InvalidMoveError.new "Not a valid move sequence."
     end
 
     perform_moves!(seq)

@@ -121,7 +121,6 @@ class Board
   def render
     @grid.reverse.map do |row|
       row.map do |square|
-        p square
         square ? " #{square.render} " : " _ "
       end.join("")
     end.join("\n")

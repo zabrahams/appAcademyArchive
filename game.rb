@@ -1,9 +1,11 @@
 class Game
 
-  def initialize(black, white, position = nil)
+  attr_reader :board, :white, :black
+
+  def initialize(black, white)
     @white = white
     @black = black
-    @board = Board.new(position)
+    @board = Board.new
   end
 
   def play
@@ -16,7 +18,7 @@ class Game
           puts "What piece would you like to move?"
           print ">"
           piece_pos = curr_player.get_input
-        rescue InputError ==> e
+        rescue InputError => e
           puts e.message
           retry
         end
@@ -33,7 +35,7 @@ class Game
             moves << move
           end
           raise InputError.new "You need to input an ending position!" if moves.empty?
-        rescue InputError ==> e
+        rescue InputError => e
           puts e.message
           retry
         end
@@ -45,5 +47,5 @@ class Game
 
     winner == :white ? (puts "White wins!") : (puts "Black wins!")
   end
-  
+
 end
