@@ -42,7 +42,6 @@ class Board
     x, y = pos
     @grid[y][x] = piece
     piece.pos = pos if piece
-    # should I also set pieces original loc to nil here?
   end
 
   def slide(start_pos, end_pos)
@@ -54,6 +53,28 @@ class Board
     self[end_pos] = self[start_pos]
     self[start_pos] = nil
     self[jump_pos] = nil
+  end
+
+  def dup
+
+  end
+
+  def extract_position
+    position = {}
+    position[:white] = pieces(:white).map { |piece| piece.pos.dup }
+    position[:black] = pieces(:black).map { |piece| piece.pos.dup }
+    position
+  end
+
+  def pieces(color = nil)
+    pieces = @grid.flatten.compact
+    if color == :white
+      pieces.select { |piece| piece.color == :white }
+    elsif color == :black
+      pieces.select { |piece| piece.color == :black }
+    else
+      pieces
+    end
   end
 
   def empty?(pos)
