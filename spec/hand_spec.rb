@@ -31,10 +31,48 @@ describe Hand do
     end
   end
 
-  describe "#is_pair?" do
+  describe "#pair?" do
+    let(:pair) { [Card.new(:clubs, :ten), card5] }
+    let(:triplet) { [Card.new(:clubs, :ten), card5, card5] }
+
     it "should identify a pair" do
-      
+      hand.cards = pair
+      expect(hand.pair?).to be true
     end
 
+    it "should return false for a triplet" do
+      hand.cards = triplet
+      expect(hand.pair?).to be false
+    end
+  end
 
+  describe '#triplet?' do
+    let(:triplet) { [Card.new(:clubs, :ten), card5, card5] }
+    let(:quad) { [Card.new(:clubs, :ten), card5, card5, card5] }
+
+    it "should identify a triplet" do
+      hand.cards = triplet
+      expect(hand.triplet?).to be true
+    end
+
+    it "should return false for a quad" do
+      hand.cards = quad
+      expect(hand.triplet?).to be false
+    end
+  end
+
+  describe '#quad?' do
+    let(:triplet) { [Card.new(:clubs, :ten), card5, card5] }
+    let(:quad) { [Card.new(:clubs, :ten), card5, card5, card5] }
+
+    it "should identify a quad" do
+      hand.cards = quad
+      expect(hand.quad?).to be true
+    end
+
+    it "should return false for a triplet" do
+      hand.cards = triplet
+      expect(hand.quad?).to be false
+    end
+  end
 end
