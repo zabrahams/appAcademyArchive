@@ -173,9 +173,20 @@ describe Hand do
     let(:deck_low_sf) { double("deck", :draw => cards[1..-1] << card6) }
     let(:hand_low_sf) { Hand.new(deck_low_sf) }
 
-    it "should return false for lower straight_flush" do
+    it "should return true for lower straight_flush" do
       expect(hand.beats?(hand_low_sf)).to be true
     end
+
+    let(:high_quad_deck) { double("deck", :draw => ([card1] * 4) << card4)}
+    let(:high_quad) { Hand.new(high_quad_deck) }
+
+    let(:low_quad_deck) { double("deck", :draw => ([card2] * 4) << card4)}
+    let(:low_quad) { Hand.new(low_quad_deck) }
+
+    it "should return true for higher quad" do
+      expect(high_quad.beats?(low_quad)).to be true
+    end
+
   end
 
 

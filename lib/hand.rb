@@ -107,9 +107,16 @@ class Hand
           elsif you > me
             return false
           end
-
-          return nil
         end
+
+        nil
+      when 2,5,6
+        my_multiple = value_count.values.max
+        your_multiple = value_count.values.max
+        
+
+        if value_count.index(my_multiple).n_value > value_count.index(my_multiple).n_value
+
       end
 
 
@@ -121,7 +128,6 @@ class Hand
     pair?; triplet?; straight?; flush?; full_house?; quad?; straight_flush?
   end
 
-  private
   def value_count
     res = Hash.new(0)
     cards.each { |card| res[card.value] += 1 }
