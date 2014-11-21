@@ -83,6 +83,44 @@ class Hand
     end
   end
 
+  def beats?(other_hand)
+    self.evaluate
+    other_hand.evaluate
+
+    if self.value > other_hand.value
+      true
+    elsif self.value < other_hand.value
+      false
+    else
+      my_values = self.cards.map(&:n_value).sort
+      your_values = other_hand.cards.map(&:n_value).sort
+
+      case self.value
+
+      when 0, 3, 4, 7
+        until my_values.empty?
+          me = my_values.pop
+          you = your_values.pop
+
+          if me > you
+            return true
+          elsif you > me
+            return false
+          end
+
+          return nil
+        end
+      end
+
+
+
+    end
+  end
+
+  def evaluate
+    pair?; triplet?; straight?; flush?; full_house?; quad?; straight_flush?
+  end
+
   private
   def value_count
     res = Hash.new(0)
@@ -95,5 +133,6 @@ class Hand
     cards.each { |card| res[card.suit] += 1 }
     res
   end
+
 
 end

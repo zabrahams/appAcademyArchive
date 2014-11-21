@@ -156,6 +156,28 @@ describe Hand do
 
   end
 
+  describe '#beats?' do
+    let(:full_house) { [card1, card1, card1, card2, card2] }
+    let(:deck_fh) { double("deck", :draw => full_house) }
+    let(:hand_fh) { Hand.new(deck_fh) }
+
+    it "should return true when player hand is higher rank" do
+      expect(hand.beats?(hand_fh)).to be true
+    end
+
+    it "should return false when player hand is lower rank" do
+      expect(hand_fh.beats?(hand)).to be false
+    end
+
+    let(:card6) { Card.new(:hearts, :nine) }
+    let(:deck_low_sf) { double("deck", :draw => cards[1..-1] << card6) }
+    let(:hand_low_sf) { Hand.new(deck_low_sf) }
+
+    it "should return false for lower straight_flush" do
+      expect(hand.beats?(hand_low_sf)).to be true
+    end
+  end
+
 
 
 end
