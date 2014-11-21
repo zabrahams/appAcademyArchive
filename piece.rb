@@ -17,10 +17,15 @@ class Piece
     @color = color # Maybe raise an error if the wrong color is used...
     @board = board
     @king = king
-    @directions = (color == :white ? [UP] : [DOWN])
+    if king
+      @directions = [UP, DOWN]
+    else
+      @directions = (color == :white ? [UP] : [DOWN])
+    end
   end
 
   def perform_slide(end_pos)
+    p "sliding to #{end_pos}"
     can_slide_proc = Proc.new { |square| can_slide?(square) }
 
     if possible_moves(SLIDE, &can_slide_proc).include?(end_pos)
@@ -50,12 +55,14 @@ class Piece
   def perform_moves!(seq)
     if seq.count == 1
       move = seq.shift
+      p "Slide/Jump #{move}"
       if !perform_slide(move) && !perform_jump(move)
         raise InvalidMoveError.new "Sequence consists of an invalid move."
       end
     else
       until seq.empty?
         move = seq.shift
+        p "Jump #{move}"
         unless perform_jump(move)
           raise InvalidMoveError.new "Sequence contains an invalid move."
         end
@@ -126,9 +133,9 @@ class Piece
 
   def render
     if king
-      color == :white ? "\y2688".red : "\u2688".magenta
+      color == :white ? "\u2688".red : "\u2688".cyan
     else
-      color == :white ? "\u2687".red : "\u2687".magenta
+      color == :white ? "\u2687".red : "\u2687".cyan
     end
   end
 

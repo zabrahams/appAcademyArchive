@@ -32,7 +32,7 @@ class Board
   end
 
   def [](pos)
-    unless pos.all? { |coord| coord.between?(0, Board::BOARD_SIZE)}
+    unless pos.all? { |coord| coord.between?(0, Board::BOARD_SIZE - 1)}
       raise InvalidMoveError.new "Position off board."
     end
     x, y = pos
@@ -111,8 +111,12 @@ class Board
   def make_board(position)
     grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     position.each do |color, squares|
+      !squares.empty? &&
       squares.each do |square|
-        is_king = ([:white, :black].include?(color) ? false : true)
+        is_king = ([:white_king, :black_king].include?(color) ? true : false)
+        if is_king
+          color = (color == :white_king ? :white : :black)
+        end
         x, y = square
         grid[y][x] = Piece.new(square, color, self, is_king)
       end

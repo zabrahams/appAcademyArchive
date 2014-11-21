@@ -2,18 +2,19 @@ class Game
 
   attr_reader :board, :white, :black, :current_player
 
-  def initialize(black, white)
+  def initialize(black, white, position = Board.starting_position)
     @white = white
     white.color = :white
     @black = black
     black.color = :black
-    @board = Board.new
+    @board = Board.new(position)
     @current_player = white
   end
 
   def play
     until board.over?
       initial_display
+      p board[[2,2]]
 
       begin
         start_prompt
@@ -44,7 +45,12 @@ class Game
   end
 
   def validate_start(pos)
+    if pos == ""
+      raise InvalidMoveError.new "Please enter a starting position!"
+    end
+
     piece = board[pos]
+
     unless piece
       raise InvalidMoveError.new "No piece at starting location."
     end
