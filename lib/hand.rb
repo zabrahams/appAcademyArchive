@@ -2,6 +2,10 @@ require_relative "deck"
 
 class Hand
 
+  HEIRARCHY = [
+    
+  ]
+
   attr_accessor :cards
 
   def initialize(deck)
@@ -26,6 +30,25 @@ class Hand
 
   def quad?
     value_count.values.include?(4)
+  end
+
+  def full_house?
+    pair? && triplet?
+  end
+
+  def flush?
+    suit_count.values.include?(5)
+  end
+
+  def straight?
+    values = cards.map { |card| card.value }
+    value_indices = values.map { |value| Card::VALUES.keys.index(value) }
+    smallest = value_indices.min
+    (smallest..smallest + 4).to_a == value_indices.sort
+  end
+
+  def straight_flush?
+    straight? && flush?
   end
 
   private

@@ -54,5 +54,9 @@ class Card
     render
   end
 
+  def n_value
+    VALUES.keys.reverse.index(self.value) + 2
+  end
+
 
 end

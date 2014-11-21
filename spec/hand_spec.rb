@@ -75,4 +75,42 @@ describe Hand do
       expect(hand.quad?).to be false
     end
   end
+
+  describe '#full_house?' do
+    let(:full_house) { [card1, card1, card1, card2, card2] }
+
+    it "should identify a full house" do
+      hand.cards = full_house
+      expect(hand.full_house?).to be true
+    end
+  end
+
+  describe '#flush?' do
+
+    it "should identify a flush" do
+      expect(hand.flush?).to be true
+    end
+  end
+
+  describe '#straight?' do
+    let(:all_tens) { [card5, card5, card5, card5, card5] }
+
+    it "should identify a straight" do
+      expect(hand.straight?).to be true
+    end
+
+    it "should return false for all tens" do
+      hand.cards = all_tens
+      expect(hand.straight?).to be false
+    end
+  end
+
+  describe '#straight_flush?' do
+    it "should identify a straight flush" do
+      expect(hand.straight_flush?).to be true
+    end
+  end
+
+  
+
 end

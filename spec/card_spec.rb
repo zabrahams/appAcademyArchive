@@ -37,11 +37,20 @@ describe Card do
   end
 
   describe "#render" do
-
     it "renders a card property" do
       expect(card.render).to eq("A♠")
     end
+  end
 
+  describe "#n_value" do
+    it "returns 14 for a :ace" do
+      expect(card.n_value).to eq(14)
+    end
+
+    it "return 6 for a :six" do
+      card = Card.new(:spades, :six)
+      expect(card.n_value).to eq(6)
+    end
   end
 
 end
