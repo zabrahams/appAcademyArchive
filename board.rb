@@ -108,6 +108,16 @@ class Board
     end
   end
 
+  def display
+    puts render
+  end
+
+  def inspect
+    render
+  end
+
+  private
+
   def make_board(position)
     grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     position.each do |color, squares|
@@ -141,14 +151,6 @@ class Board
     end
 
     (render_str << hori_border)
-  end
-
-  def display
-    puts render
-  end
-
-  def inspect
-    render
   end
 
   def hori_border

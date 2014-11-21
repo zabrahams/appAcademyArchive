@@ -44,6 +44,8 @@ class Game
     winner == :white ? (puts "White wins!") : (puts "Black wins!")
   end
 
+  private
+  
   def validate_start(pos)
     if pos == ""
       raise InvalidMoveError.new "Please enter a starting position!"

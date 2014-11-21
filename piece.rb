@@ -24,6 +24,33 @@ class Piece
     end
   end
 
+  def perform_moves(seq)
+    unless valid_move_seq?(seq)
+      raise InvalidMoveError.new "Not a valid move sequence."
+    end
+
+    perform_moves!(seq)
+  end
+
+  def render
+    if king
+      color == :white ? "\u2688".red : "\u2688".cyan
+    else
+      color == :white ? "\u2687".red : "\u2687".cyan
+    end
+  end
+
+  def inspect
+    x, y = pos
+    "x: #{x}, y: #{y}, color: #{color}, directions: #{directions}, King: #{king}"
+  end
+
+  def add_pos(pos1, pos2)
+    [pos1[0] + pos2[0], pos1[1] + pos2[1]]
+  end
+
+  private
+
   def perform_slide(end_pos)
     p "sliding to #{end_pos}"
     can_slide_proc = Proc.new { |square| can_slide?(square) }
@@ -55,27 +82,17 @@ class Piece
   def perform_moves!(seq)
     if seq.count == 1
       move = seq.shift
-      p "Slide/Jump #{move}"
       if !perform_slide(move) && !perform_jump(move)
         raise InvalidMoveError.new "Sequence consists of an invalid move."
       end
     else
       until seq.empty?
         move = seq.shift
-        p "Jump #{move}"
         unless perform_jump(move)
           raise InvalidMoveError.new "Sequence contains an invalid move."
         end
       end
     end
-  end
-
-  def perform_moves(seq)
-    unless valid_move_seq?(seq)
-      raise InvalidMoveError.new "Not a valid move sequence."
-    end
-
-    perform_moves!(seq)
   end
 
   def valid_move_seq?(seq)
@@ -129,23 +146,6 @@ class Piece
   def promote
     @king = true
     @directions = [UP, DOWN]
-  end
-
-  def render
-    if king
-      color == :white ? "\u2688".red : "\u2688".cyan
-    else
-      color == :white ? "\u2687".red : "\u2687".cyan
-    end
-  end
-
-  def inspect
-    x, y = pos
-    "x: #{x}, y: #{y}, color: #{color}, directions: #{directions}, King: #{king}"
-  end
-
-  def add_pos(pos1, pos2)
-    [pos1[0] + pos2[0], pos1[1] + pos2[1]]
   end
 
   def square_between(pos1, pos2)
