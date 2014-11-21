@@ -44,6 +44,12 @@ describe Hand do
       hand.cards = triplet
       expect(hand.pair?).to be false
     end
+
+    it "should modify hand.value" do
+      hand.cards = pair
+      hand.pair?
+      expect(hand.value).to eq(1)
+    end
   end
 
   describe '#triplet?' do
@@ -59,6 +65,13 @@ describe Hand do
       hand.cards = quad
       expect(hand.triplet?).to be false
     end
+
+    it "should modify hand.value" do
+      hand.cards = triplet
+      hand.triplet?
+      expect(hand.value).to eq(2)
+    end
+
   end
 
   describe '#quad?' do
@@ -74,6 +87,13 @@ describe Hand do
       hand.cards = triplet
       expect(hand.quad?).to be false
     end
+
+    it "should modify hand.value" do
+      hand.cards = quad
+      hand.quad?
+      expect(hand.value).to eq(6)
+    end
+
   end
 
   describe '#full_house?' do
@@ -83,6 +103,13 @@ describe Hand do
       hand.cards = full_house
       expect(hand.full_house?).to be true
     end
+
+    it "should modify hand.value" do
+      hand.cards = full_house
+      hand.full_house?
+      expect(hand.value).to eq(5)
+    end
+
   end
 
   describe '#flush?' do
@@ -90,6 +117,12 @@ describe Hand do
     it "should identify a flush" do
       expect(hand.flush?).to be true
     end
+
+    it "should modify hand.value" do
+      hand.flush?
+      expect(hand.value).to eq(4)
+    end
+
   end
 
   describe '#straight?' do
@@ -103,14 +136,26 @@ describe Hand do
       hand.cards = all_tens
       expect(hand.straight?).to be false
     end
+
+    it "should modify hand.value" do
+      hand.straight?
+      expect(hand.value).to eq(3)
+    end
+
   end
 
   describe '#straight_flush?' do
     it "should identify a straight flush" do
       expect(hand.straight_flush?).to be true
     end
+
+    it "should modify hand.value" do
+      hand.straight_flush?
+      expect(hand.value).to eq(7)
+    end
+
   end
 
-  
+
 
 end
