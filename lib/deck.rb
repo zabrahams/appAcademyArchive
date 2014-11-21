@@ -15,7 +15,7 @@ class Deck
 
   attr_accessor :cards
 
-  def initialize(cards)
+  def initialize(cards = Deck.setup_deck.cards)
     @cards = cards
   end
 
