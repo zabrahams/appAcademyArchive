@@ -19,6 +19,13 @@ class Deck
     @cards = cards
   end
 
-  
+  def shuffle
+    cards.shuffle!
+    self
+  end
+
+  def draw(n)
+    cards.shift(n)
+  end
 
 end
