@@ -1,17 +1,20 @@
+require "colorize"
+require_relative "hand"
+
 class InvalidInputError < StandardError
 end
 
 class BettingError < StandardError
 end
 
-require "colorize"
 
 class Player
 
   attr_accessor :hand
-  attr_reader :pot
+  attr_reader :pot, :name
 
-  def initialize(pot)
+  def initialize(name, pot)
+    @name = name
     @hand = nil
     @pot = pot
     @fold = false
@@ -25,7 +28,14 @@ class Player
     @pot += new_pot
   end
 
+  def receive_hand(cards)
+    @hand = Hand.new(cards)
+    @fold = false
+  end
+
   def get_discard
+    puts system("clear")
+    puts "#{name}'s hand: #{hand.render}"
     puts "Please write the indices of the cards you would"
     puts "like to discard, seperated by commas."
     begin
@@ -47,6 +57,8 @@ class Player
 
   def bet_response(bet)
     begin
+      system("clear")
+      puts "#{name}'s hand: #{hand.render}"
       puts "The current bet is #{"#{bet}".blink}."
       puts "would you like to (f)old, (s)ee, or (r)aise?"
       # should add "all-in"
@@ -98,7 +110,7 @@ class Player
   def fold
     hand = nil
     @fold = true
-    0
+    nil
   end
 
   def see(bet)
