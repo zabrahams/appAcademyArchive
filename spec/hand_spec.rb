@@ -7,7 +7,7 @@ describe Hand do
   let(:card3) { Card.new(:hearts, :queen) }
   let(:card4) { Card.new(:hearts, :jack) }
   let(:card5) { Card.new(:hearts, :ten) }
-  let(:card6) { Card.new(:heards, :nine)}
+  let(:card6) { Card.new(:hearts, :nine)}
   let(:cards) { [card1, card2, card3, card4, card5]}
   let(:deck) { double("deck", :draw => cards) }
   subject(:hand) { Hand.new(deck) }
@@ -217,28 +217,43 @@ describe Hand do
       expect(low_pair_hand.beats?(high_pair_hand)).to be false
     end
 
-    let(:card1) { Card.new(:spades, :deuce)}
-    let(:card2) { Card.new(:spades, :three)}
-    let(:card3) { Card.new(:hearts, :four)}
-    let(:card4) { Card.new(:hearts, :five)}
-    let(:card5) { Card.new(:diamonds, :six)}
-    let(:card6) { Card.new(:diamonds, :seven)}
+    context "edge cases" do
+      let(:card1) { Card.new(:spades, :deuce)}
+      let(:card2) { Card.new(:spades, :three)}
+      let(:card3) { Card.new(:hearts, :four)}
+      let(:card4) { Card.new(:hearts, :five)}
+      let(:card5) { Card.new(:diamonds, :six)}
+      let(:card6) { Card.new(:diamonds, :seven)}
 
-    let(:low_card_deck) do
-      double("low_card_deck", :draw => [card1, card3, card4, card5, card6])
-    end
-    let(:low_card_hand) { Hand.new(low_card_deck) }
-    let(:high_card_deck) do
-      double("high_card_deck", :draw => [card2, card3, card4, card5, card6])
-    end
-    let(:high_card_hand) { Hand.new(high_card_deck) }
+      let(:low_house_deck) do
+        double("low_house_deck", :draw => [card5, card5, card1, card1, card1])
+      end
+      let(:low_house_hand) { Hand.new(low_house_deck) }
+      let(:high_house_deck) do
+        double("high_house_deck", :draw => [card4, card4, card4, card2, card2])
+      end
+      let(:high_house_hand) { Hand.new(high_house_deck) }
 
-    it "should return true for lowest card higher" do
-      expect(high_card_hand.beats?(low_card_hand)).to be true
-    end
+      it "should return false for the full hand with three deuces" do
+        expect(low_house_hand.beats?(high_house_hand)).to be false
+      end
 
-    it "should return nil for a true tie" do
-      expect(low_card_hand.beats?(low_card_hand)).to be nil
+      let(:low_card_deck) do
+        double("low_card_deck", :draw => [card1, card3, card4, card5, card6])
+      end
+      let(:low_card_hand) { Hand.new(low_card_deck) }
+      let(:high_card_deck) do
+        double("high_card_deck", :draw => [card2, card3, card4, card5, card6])
+      end
+      let(:high_card_hand) { Hand.new(high_card_deck) }
+
+      it "should return true for lowest card higher" do
+        expect(high_card_hand.beats?(low_card_hand)).to be true
+      end
+
+      it "should return nil for a true tie" do
+        expect(low_card_hand.beats?(low_card_hand)).to be nil
+      end
     end
   end
 

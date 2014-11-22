@@ -103,36 +103,30 @@ class Hand
     elsif self.value < other_hand.value
       false
     else
-      my_values = self.cards.map(&:n_value).sort
-      your_values = other_hand.cards.map(&:n_value).sort
+      my_multiples = extract_multiples
+      my_singles = cards.sort.reverse - my_multiples.flatten
+      other_multiples = other_hand.extract_multiples
+      other_singles = other_hand.cards.sort.reverse - other_multiples.flatten
 
-      case self.value
+      mults = compare_arrays(my_multiples, other_multiples)
+      return mults unless mults.nil?
 
-      when 0, 3, 4, 7
-        until my_values.empty?
-          me = my_values.pop
-          you = your_values.pop
-
-          if me > you
-            return true
-          elsif you > me
-            return false
-          end
-        end
-
-        nil
-      when 2,5,6
-        my_multiple = card_type_count.values.max
-        your_multiple = card_type_count.values.max
-
-
-        # if card_type_count.index(my_multiple).n_value > card_type_count.index(my_multiple).n_value
-
-      end
-
-
-
+      compare_arrays(my_singles, other_singles)
     end
+  end
+
+  def compare_arrays(arr1, arr2)
+    until arr1.empty?
+      my_el = arr1.shift
+      other_el = arr2.shift
+      if my_el > other_el
+        return true
+      elsif my_el < other_el
+        return false
+      end
+      nil
+    end
+
   end
 
   def evaluate
@@ -151,5 +145,24 @@ class Hand
     res
   end
 
+  def extract_multiples
+
+    multiples = []
+    sorted_cards = cards.sort.reverse
+    until sorted_cards.empty?
+      new_card = sorted_cards.shift
+      if sorted_cards.include?(new_card) || multiples.include?(new_card)
+        multiples << new_card
+      end
+    end
+
+    if full_house?
+      multiples.pop(2)
+      multiples.shift(2)
+      multiples *= 3
+    end
+
+    multiples
+  end
 
 end

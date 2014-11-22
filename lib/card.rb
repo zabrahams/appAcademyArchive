@@ -58,5 +58,21 @@ class Card
     VALUES.keys.reverse.index(self.value) + 2
   end
 
+  def <=>(card)
+    if self.n_value > card.n_value
+      1
+    elsif self.n_value == card.n_value
+      0
+    else
+      -1
+    end
+  end
 
+  def >(card)
+    (self <=> card) == 1
+  end
+
+  def <(card)
+    (self <=> card) == -1
+  end
 end

@@ -53,4 +53,27 @@ describe Card do
     end
   end
 
+  describe "#<=>" do
+
+    let(:card1) { Card.new(:spades, :eight) }
+    let(:card2) { Card.new(:spades, :ten) }
+    let(:card3) { Card.new(:spades, :king) }
+
+    it "returns 1 if the first card is higher" do
+      expect(card2 <=> card1).to eq(1)
+    end
+
+    it "returns 0 if the cards are equal" do
+      expect(card2 <=> card2).to eq(0)
+    end
+
+    it "returns -1 if the first card is lower" do
+      expect(card1 <=> card2).to eq(-1)
+    end
+
+    it "allows cards to be sorted" do
+      expect([card3, card2, card1].sort).to eq([card1, card2, card3])
+    end
+  end
+
 end
