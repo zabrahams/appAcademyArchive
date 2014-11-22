@@ -28,4 +28,8 @@ class Deck
     cards.shift(n)
   end
 
+  def deal_hand
+    draw(5)
+  end
+
 end

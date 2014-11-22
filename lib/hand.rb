@@ -4,8 +4,8 @@ class Hand
 
   attr_accessor :cards, :value
 
-  def initialize(deck)
-    @cards = deck.draw(5)
+  def initialize(cards)
+    @cards = cards
     @value = 0
   end
 
