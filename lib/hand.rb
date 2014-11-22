@@ -165,4 +165,16 @@ class Hand
     multiples
   end
 
+  def render
+    cards.map(&:render).join("  ")
+  end
+
+  def inspect
+    render
+  end
+
+  def to_s
+    render
+  end
+
 end
