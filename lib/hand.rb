@@ -18,7 +18,7 @@ class Hand
   end
 
   def pair?
-    if value_count.values.include?(2)
+    if card_type_count.values.include?(2)
       self.value = 1
       return true
     else
@@ -26,9 +26,20 @@ class Hand
     end
   end
 
-  def triplet?
-    if value_count.values.include?(3)
+  def two_pair?
+    cards_of_a_type = card_type_count.values
+    num_pairs = cards_of_a_type.select { |num_cards| num_cards == 2 }
+    if num_pairs.count == 2
       self.value = 2
+      true
+    else
+      false
+    end
+  end
+
+  def triplet?
+    if card_type_count.values.include?(3)
+      self.value = 3
       true
     else
       false
@@ -40,7 +51,7 @@ class Hand
     value_indices = values.map { |value| Card::VALUES.keys.index(value) }
     smallest = value_indices.min
     if (smallest..smallest + 4).to_a == value_indices.sort
-      self.value = 3
+      self.value = 4
       true
     else
       false
@@ -49,7 +60,7 @@ class Hand
 
   def flush?
     if suit_count.values.include?(5)
-      self.value = 4
+      self.value = 5
       true
     else
       false
@@ -58,7 +69,7 @@ class Hand
 
   def full_house?
     if pair? && triplet?
-      self.value = 5
+      self.value = 6
       true
     else
       false
@@ -66,8 +77,8 @@ class Hand
   end
 
   def quad?
-    if value_count.values.include?(4)
-      self.value = 6
+    if card_type_count.values.include?(4)
+      self.value = 7
       true
     else
       false
@@ -76,7 +87,7 @@ class Hand
 
   def straight_flush?
     if straight? && flush?
-      self.value = 7
+      self.value = 8
       true
     else
       false
@@ -111,11 +122,11 @@ class Hand
 
         nil
       when 2,5,6
-        my_multiple = value_count.values.max
-        your_multiple = value_count.values.max
-        
+        my_multiple = card_type_count.values.max
+        your_multiple = card_type_count.values.max
 
-        if value_count.index(my_multiple).n_value > value_count.index(my_multiple).n_value
+
+        # if card_type_count.index(my_multiple).n_value > card_type_count.index(my_multiple).n_value
 
       end
 
@@ -128,7 +139,7 @@ class Hand
     pair?; triplet?; straight?; flush?; full_house?; quad?; straight_flush?
   end
 
-  def value_count
+  def card_type_count
     res = Hash.new(0)
     cards.each { |card| res[card.value] += 1 }
     res
