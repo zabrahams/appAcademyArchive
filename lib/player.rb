@@ -10,7 +10,7 @@ end
 
 class Player
 
-  attr_accessor :hand
+  attr_accessor :hand, :my_bet
   attr_reader :pot, :name
 
   def initialize(name, pot)
@@ -18,6 +18,7 @@ class Player
     @hand = nil
     @pot = pot
     @fold = false
+    @my_bet = 0
   end
 
   def fold?
@@ -34,7 +35,7 @@ class Player
   end
 
   def get_discard
-    puts system("clear")
+    system("clear")
     puts "#{name}'s hand: #{hand.render}"
     puts "Please write the indices of the cards you would"
     puts "like to discard, seperated by commas."
@@ -58,9 +59,10 @@ class Player
   def bet_response(bet)
     begin
       system("clear")
-      puts "#{name}'s hand: #{hand.render}"
-      puts "The current bet is #{"#{bet}".blink}."
-      puts "would you like to (f)old, (s)ee, or (r)aise?"
+      puts "#{name}'s hand: #{hand.sort!.render}"
+      puts "#{name} has $#{pot}."
+      puts "The current bet is #{"$#{bet}".red}."
+      puts "Would you like to (f)old, (s)ee, or (r)aise?"
       # should add "all-in"
       print ">".blink
       response = gets.chomp.downcase
@@ -113,18 +115,20 @@ class Player
     nil
   end
 
-  def see(bet)
+  def see(curr_bet)
+    bet = curr_bet - my_bet
     raise BettingError.new "Not enough money!" if bet > pot
     @pot -= bet
-    bet
+    @my_bet = my_bet + bet
   end
 
-  def bet_raise(bet, amt)
+  def bet_raise(curr_bet, amt)
+    bet = curr_bet - my_bet
     if bet + amt > pot
       raise BettingError.new "Not enough money!"
     end
-    @pot -= bet + amt
-    bet + amt
+    @pot -= (bet + amt)
+    @my_bet = my_bet + amt
   end
 
 end

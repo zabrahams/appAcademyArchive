@@ -17,6 +17,11 @@ class Hand
     self.cards = cards.reject { |card| indices.include?(cards.index(card)) }
   end
 
+  def sort!
+    self.cards = cards.sort
+    self
+  end
+
   def pair?
     if card_type_count.values.include?(2)
       self.value = 1
