@@ -27,7 +27,6 @@ class Game
     betting_round
     discard_round
     betting_round
-    debugger
     pay_pot(winners)
     players.each { |player| puts "#{player.name} has $#{player.pot}." }
   end
@@ -59,12 +58,15 @@ class Game
 
   def winners
     contenders = players.dup.reject(&:fold?)
+    losers = []
     players.each do |player|
       next unless contenders.include?(player)
       contenders.each do |contender|
         next if player == contender
-        contenders.delete(contender) if player.hand.beats?(contender.hand)
+
+        losers << contender if player.hand.beats?(contender.hand)
       end
+      contenders -= losers
     end
 
     contenders
@@ -80,7 +82,6 @@ class Game
       winner.receive_pot(winnings)
       puts "#{winner.name} received $#{winnings} with: #{winner.hand.render}"
     end
-    players.each { |player| puts "#{player.name}: #{player.hand.render}  #{player.hand.value}"}
     self.pot = remainder
   end
 

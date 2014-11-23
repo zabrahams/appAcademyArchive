@@ -61,7 +61,7 @@ class Player
       system("clear")
       puts "#{name}'s hand: #{hand.sort!.render}"
       puts "#{name} has $#{pot}."
-      puts "The current bet is #{"$#{bet}".red}."
+      puts "The current bet is #{"$#{bet}".green}."
       puts "Would you like to (f)old, (s)ee, or (r)aise?"
       # should add "all-in"
       print ">".blink

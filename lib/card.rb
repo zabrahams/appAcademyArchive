@@ -39,7 +39,11 @@ class Card
   end
 
   def render
-    "#{VALUES[value]}#{SUITS[suit]}"
+    if suit == :hearts || suit == :diamonds
+      "#{VALUES[value]}#{SUITS[suit]}".red
+    else
+      "#{VALUES[value]}#{SUITS[suit]}"
+    end
   end
 
   def to_s

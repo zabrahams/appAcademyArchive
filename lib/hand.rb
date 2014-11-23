@@ -23,7 +23,7 @@ class Hand
   end
 
   def pair?
-    if card_type_count.values.include?(2)
+    if card_type_count.values.include?(2) && !two_pair?
       self.value = 1
       return true
     else
@@ -135,7 +135,14 @@ class Hand
   end
 
   def evaluate
-    pair?; triplet?; straight?; flush?; full_house?; quad?; straight_flush?
+    pair?
+    two_pair?
+    triplet?
+    straight?
+    flush?
+    full_house?
+    quad?
+    straight_flush?
   end
 
   def card_type_count
@@ -151,7 +158,6 @@ class Hand
   end
 
   def extract_multiples
-    debugger
 
     multiples = []
     sorted_cards = cards.sort.reverse
