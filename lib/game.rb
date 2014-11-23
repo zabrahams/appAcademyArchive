@@ -1,3 +1,5 @@
+require 'byebug'
+
 require_relative "player"
 require_relative "deck"
 
@@ -25,6 +27,7 @@ class Game
     betting_round
     discard_round
     betting_round
+    debugger
     pay_pot(winners)
     players.each { |player| puts "#{player.name} has $#{player.pot}." }
   end
@@ -35,7 +38,7 @@ class Game
     until players.all? { |player| player.fold? || player.my_bet == current_bet }
       current_bet ||= 0
       players.each do |player|
-        next if player.fold?
+        next if player.fold? || already_bet?(player, current_bet)
         new_bet = player.bet_response(current_bet)
         if new_bet
           self.pot += new_bet
@@ -77,7 +80,12 @@ class Game
       winner.receive_pot(winnings)
       puts "#{winner.name} received $#{winnings} with: #{winner.hand.render}"
     end
+    players.each { |player| puts "#{player.name}: #{player.hand.render}  #{player.hand.value}"}
     self.pot = remainder
+  end
+
+  def already_bet?(player, current_bet)
+    ((player.my_bet == current_bet) && current_bet != 0)
   end
 
 end

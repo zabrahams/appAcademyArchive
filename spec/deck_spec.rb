@@ -32,8 +32,8 @@ describe Deck do
     expect(deck.cards.uniq).to eq(deck.cards)
   end
 
-  describe "#shuffle" do
-    let(:shuffled_deck) { Deck.setup_deck.shuffle }
+  describe "#shuffle!" do
+    let(:shuffled_deck) { Deck.setup_deck.shuffle! }
 
     it "should randomize the cards" do
       expect(deck.cards).to_not eq(shuffled_deck.cards)
@@ -48,7 +48,11 @@ describe Deck do
 
     it "should remove the cards from the deck" do
       drawn_cards = deck.draw(5)
-      condition = drawn_cards.none? { |card| deck.cards.include?(card) }
+      condition = drawn_cards.none? do |card1|
+        deck.cards.any? do |card2|
+          card2.suit == card1.suit && card2.value == card1.value
+        end
+      end
       expect(condition).to be true
     end
 

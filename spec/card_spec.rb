@@ -27,10 +27,6 @@ describe Card do
       expect(card3 == card4).to be true
     end
 
-    it "returns false when the suit differs" do
-      expect(card1 == card2).to be false
-    end
-
     it "returns false when the value differs" do
       expect(card3 == card1).to be false
     end

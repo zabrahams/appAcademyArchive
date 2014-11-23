@@ -119,7 +119,7 @@ class Player
     bet = curr_bet - my_bet
     raise BettingError.new "Not enough money!" if bet > pot
     @pot -= bet
-    @my_bet = my_bet + bet
+    @my_bet = curr_bet
   end
 
   def bet_raise(curr_bet, amt)
@@ -128,7 +128,7 @@ class Player
       raise BettingError.new "Not enough money!"
     end
     @pot -= (bet + amt)
-    @my_bet = my_bet + amt
+    @my_bet = curr_bet + amt
   end
 
 end

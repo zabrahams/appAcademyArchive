@@ -3,7 +3,7 @@ require "player"
 require "card"
 
 describe Player do
-  subject(:player) { Player.new(100) }
+  subject(:player) { Player.new("Alf", 100) }
 
   describe "#initialize" do
 

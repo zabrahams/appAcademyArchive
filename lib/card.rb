@@ -38,10 +38,6 @@ class Card
     @value = value
   end
 
-  def ==(other_card)
-    self.suit == other_card.suit && self.value == other_card.value
-  end
-
   def render
     "#{VALUES[value]}#{SUITS[suit]}"
   end
@@ -66,6 +62,10 @@ class Card
     else
       -1
     end
+  end
+
+  def ==(other_card)
+    (self <=> other_card) == 0
   end
 
   def >(card)

@@ -151,6 +151,7 @@ class Hand
   end
 
   def extract_multiples
+    debugger
 
     multiples = []
     sorted_cards = cards.sort.reverse
@@ -164,10 +165,9 @@ class Hand
     if full_house?
       multiples.pop(2)
       multiples.shift(2)
-      multiples *= 3
     end
 
-    multiples
+    multiples.uniq
   end
 
   def render
