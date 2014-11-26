@@ -12,6 +12,20 @@ class ShortenedUrl < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :visits,
+    class_name: "Visit",
+    foreign_key: :shortened_url_id,
+    primary_key: :id
+  )
+
+  has_many(
+    :visitors,
+    -> { distinct },
+    through: :visits,
+    source: :visitor
+  )
+
   def self.random_code
     short_code = nil
     loop do
@@ -27,5 +41,17 @@ class ShortenedUrl < ActiveRecord::Base
                      short_url: ShortenedUrl.random_code)
   end
 
+  def num_clicks
+    self.visits.count
+  end
+
+  def num_uniques
+    self.visitors.count
+  end
+
+  def num_recent_uniques
+    self.visitors
+        .where({ :'visits.created_at' => (10.minutes.ago)..Time.now }).count || 0
+  end
 
 end
