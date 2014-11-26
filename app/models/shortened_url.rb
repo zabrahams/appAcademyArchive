@@ -4,6 +4,8 @@ class ShortenedUrl < ActiveRecord::Base
 
   validates :short_url, presence: true, uniqueness: true
   validates :long_url, :submitter_id, presence: true
+  validates :long_url, length: { maximum: 1024 }
+  validate :maximum_five_urls_per_min_per_user
 
   belongs_to(
     :submitter,
@@ -36,9 +38,11 @@ class ShortenedUrl < ActiveRecord::Base
   end
 
   def self.create_for_user_and_long_url!(user, long_url)
-    ShortenedUrl.create!(submitter_id: user.id,
-                     long_url: long_url,
-                     short_url: ShortenedUrl.random_code)
+    ShortenedUrl.create!(
+      submitter_id: user.id,
+      long_url: long_url,
+      short_url: ShortenedUrl.random_code
+    )
   end
 
   def num_clicks
@@ -50,8 +54,23 @@ class ShortenedUrl < ActiveRecord::Base
   end
 
   def num_recent_uniques
-    self.visitors
-        .where({ :'visits.created_at' => (10.minutes.ago)..Time.now }).count || 0
+    self
+      .visitors
+      .where({ :'visits.created_at' => (10.minutes.ago)..Time.now })
+      .count || 0
   end
 
+end
+
+private
+
+def maximum_five_urls_per_min_per_user
+  number_urls = ShortenedUrl
+    .joins('INNER JOIN "users" ON "users"."id" = "shortened_urls"."submitter_id"')
+    .where({:'users.id' => self.submitter_id,
+      :'shortened_urls.created_at' => (1.minutes.ago)..Time.now,
+     }).count
+  if number_urls > 4
+    errors[:base] << "Too many urls in the last minute"
+  end
 end
