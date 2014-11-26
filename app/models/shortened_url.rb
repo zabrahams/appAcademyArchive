@@ -28,6 +28,19 @@ class ShortenedUrl < ActiveRecord::Base
     source: :visitor
   )
 
+  has_many(
+  :taggings,
+  class_name: 'Tagging',
+  foreign_key: :shortened_url_id,
+  primary_key: :id
+  )
+
+  has_many(
+    :tag_topics,
+    through: :taggings,
+    source: :tag_topic
+  )
+
   def self.random_code
     short_code = nil
     loop do
@@ -58,6 +71,10 @@ class ShortenedUrl < ActiveRecord::Base
       .visitors
       .where({ :'visits.created_at' => (10.minutes.ago)..Time.now })
       .count || 0
+  end
+
+  def tag!(tag_topic)
+    Tagging.create(tag_topic_id: tag_topic.id, shortened_url_id: self.id )
   end
 
 end
