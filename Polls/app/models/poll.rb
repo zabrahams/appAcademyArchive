@@ -13,7 +13,8 @@ validates :author_user_id, :title, presence: true
     :questions,
     class_name: 'Question',
     foreign_key: :poll_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
     )
 
 

@@ -6,14 +6,16 @@ validates :user_name, presence: true
     :authored_polls,
     class_name: 'Poll',
     foreign_key: :author_user_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
     )
 
   has_many(
     :responses,
     class_name: 'Response',
     foreign_key: :user_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
     )
 
   def completed_polls

@@ -13,7 +13,8 @@ validates :poll_id, :text, presence: true
     :answer_choices,
     class_name: 'AnswerChoice',
     foreign_key: :question_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
     )
 
   has_many :responses, through: :answer_choices, source: :responses
