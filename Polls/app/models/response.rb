@@ -2,6 +2,7 @@ class Response < ActiveRecord::Base
 
   validates :user_id, :answer_choice_id, presence: true
   validate :respondent_has_not_already_answered_question
+  validate :respondent_is_not_poller
 
   belongs_to(
     :respondent,
@@ -29,6 +30,12 @@ class Response < ActiveRecord::Base
   def respondent_has_not_already_answered_question
     if sibling_responses.exists?(user_id: self.user_id)
       errors[:user_id] << "user has already responded"
+    end
+  end
+
+  def respondent_is_not_poller
+    if self.question.poll.author_user_id == self.user_id
+      errors[:user_id] << "user can't respond to own poll"
     end
   end
 
