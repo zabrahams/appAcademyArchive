@@ -20,7 +20,13 @@
 <ul>
   <% @requests.each do |request| %>
     <li>
-      <%= "#{request.start_date} to #{request.end_date}" %> 
+      <%= "#{request.start_date} to #{request.end_date} Status: #{request.status}" %>
+      <% if request.pending? %>
+        <%= button_to "Approve", {controller: :cat_rental_requests,
+                action: :approve}, method: 'patch' %>
+        <%= button_to "Deny", {controller: :cat_rental_requests,
+                action: :deny}, method: 'patch' %>
+      <% end %>
     </li>
   <% end %>
 </ul>

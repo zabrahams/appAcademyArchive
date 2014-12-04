@@ -21,13 +21,36 @@ class CatRentalRequest < ActiveRecord::Base
                 .where("id IS NULL OR id != ?", self.id)
   end
 
+  def overlapping_pending_requests
+    overlapping_requests.select("status = 'PENDING'")
+  end
+
   def overlapping_approved_requests
     overlapping_requests.select("status = 'APPROVED'")
   end
 
-    def set_initial_status
-      self.status ||= "PENDING"
+  def set_initial_status
+    self.status ||= "PENDING"
+  end
+
+  def approve!
+    CatRentalRequest.transaction do
+      self.status = "APPROVED"
+      save!
+      overlapping_pending_requests.each do |request|
+        request.deny!
+      end
     end
+  end
+
+  def deny!
+    self.status = "DENIED"
+    save!
+  end
+
+  def pending?
+    status == 'PENDING'
+  end
 
   private
 
