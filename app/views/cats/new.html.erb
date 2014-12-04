@@ -1,0 +1,7 @@
+<h1>Physically create a new cat?</h1>
+
+<form action="<%= cats_url %>" method="post">
+  <%= render "form", cat: @cat %>
+
+  <input type="submit" value="Create cat">
+</form>
