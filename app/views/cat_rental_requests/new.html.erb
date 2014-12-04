@@ -3,12 +3,11 @@
 <form action="<%= cat_rental_requests_url %>" method="post">
 
   <select name="cat_rental_request[cat_id]" id="cat_rental_request_cat_id">
-    <option value="<%= @crr.cat_id ? Cat.find(@crr.cat_id).name : '' %>">
-      <%= @crr.cat_id ? Cat.find(@crr.cat_id).name : "Pick a cat to rentalize!" %>
-    </option>
+    <option value=""></option>
     <% Cat.all.each do |cat| %>
-      <% next if cat.id == @crr.cat_id %>
-      <option value="<%= cat.id %>"><%= cat.name %></option>
+      <option value="<%= cat.id %>" selected="<%= cat.id == (@crr.cat_id || (params[cat] && params[cat][:id]))%>">
+        <%= cat.name %>
+      </option>
     <% end %>
   </select>
 

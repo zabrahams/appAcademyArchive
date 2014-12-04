@@ -30,3 +30,11 @@
     </li>
   <% end %>
 </ul>
+
+<a href="<%=edit_cat_url(@cat)%>">Edit this here cat</a>
+<br/>
+<a href="<%=new_cat_rental_request_url%>?cat%5bid%5d%3d<%= @cat.id %>">
+  Make a request for this amazingly cute cat
+</a>
+<br/>
+<a href="<%=cats_url%>">Back to the great list O' cats</a>

@@ -13,20 +13,24 @@ class CatRentalRequest < ActiveRecord::Base
 
 
   def overlapping_requests
+
+    date_condition = "(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?)
+                      OR (start_date < ? AND end_date > ?)"
+    query_params = [self.start_date, self.end_date] * 3
+    
     requests = CatRentalRequest
                 .all
                 .where(cat_id: self.cat_id)
-                .where("(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?)",
-                   self.start_date, self.end_date, self.start_date, self.end_date)
+                .where(date_condition, *query_params)
                 .where("id IS NULL OR id != ?", self.id)
   end
 
   def overlapping_pending_requests
-    overlapping_requests.select("status = 'PENDING'")
+    overlapping_requests.where(status: 'PENDING')
   end
 
   def overlapping_approved_requests
-    overlapping_requests.select("status = 'APPROVED'")
+    overlapping_requests.where(status: 'APPROVED')
   end
 
   def set_initial_status
