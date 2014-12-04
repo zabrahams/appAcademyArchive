@@ -1,0 +1,24 @@
+<h1>Make a new request, if you want, or something.</h1>
+
+<form action="<%= cat_rental_requests_url %>" method="post">
+
+  <select name="cat_rental_request[cat_id]" id="cat_rental_request_cat_id">
+    <option value="<%= @crr.cat_id ? Cat.find(@crr.cat_id).name : '' %>">
+      <%= @crr.cat_id ? Cat.find(@crr.cat_id).name : "Pick a cat to rentalize!" %>
+    </option>
+    <% Cat.all.each do |cat| %>
+      <% next if cat.id == @crr.cat_id %>
+      <option value="<%= cat.id %>"><%= cat.name %></option>
+    <% end %>
+  </select>
+
+  <input type="date" name="cat_rental_request[start_date]"
+         value="<%= @crr.start_date %>" id="cat_rental_request_start_date">
+  <label for="cat_rental_request_start_date">Start date!</label>
+
+  <input type="date" name="cat_rental_request[end_date]"
+         value="<%= @crr.end_date %>" id="cat_rental_request_end_date">
+  <label for="cat_rental_request_end_date">End date!</label>
+
+  <input type="submit" value="Make your not silly request.">
+</form>
