@@ -2,15 +2,14 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by_credentials(session_params)
     if @user.nil?
+      flash[:errors] = ["Can't find user."]
       @user = User.new(session_params)
       render :new
     else
       session[:token] = @user.session_token
       login_user!
-      # debugger
       redirect_to cats_url
     end
-
   end
 
   def new

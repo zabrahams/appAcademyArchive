@@ -14,6 +14,7 @@ class CatRentalRequestsController < ApplicationController
     if @crr.save
       redirect_to cat_url(@crr.cat_id)
     else
+      flash.now[:errors] = @crr.errors.full_messages
       render :new
     end
   end
@@ -24,7 +25,6 @@ class CatRentalRequestsController < ApplicationController
   end
 
   def deny
-
     @crr.deny!
     redirect_to cat_url(@crr.cat_id)
   end

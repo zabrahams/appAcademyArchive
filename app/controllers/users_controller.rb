@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       login_user!
       redirect_to cats_url
     else
+      flash.now[:errors] = @user.errors.full_messages
       redirect_to :new
     end
   end

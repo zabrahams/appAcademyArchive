@@ -5,6 +5,10 @@
 </head>
 <body>
 
+<% flash[:errors] && flash[:errors].each do |message| %>
+<p><%= message %></p>
+<% end %>
+
 <% if signed_in? %>
   <div id="user_login">Hello <%= current_user.user_name %></div>
   <form action="<%= session_url %>" method="post">

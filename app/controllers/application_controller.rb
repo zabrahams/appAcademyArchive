@@ -19,12 +19,20 @@ class ApplicationController < ActionController::Base
 
   def check_cat_ownership
     unless current_is_owner?
+      flash[:errors] = ["Must own cat."]
       redirect_to new_session_url
     end
   end
 
   def current_is_owner?
-    @cat.user_id == current_user.id
+    current_user && @cat.user_id == current_user.id
+  end
+
+  def require_login
+    unless signed_in?
+      flash[:errors] = ["Must be logged in."]
+      redirect_to new_session_url
+    end
   end
 
   helper_method :current_user, :signed_in?, :check_cat_ownership,
