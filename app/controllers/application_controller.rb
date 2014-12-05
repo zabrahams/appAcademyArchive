@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
     session[:token] = current_user.session_token
   end
 
-  helper_method :current_user, :signed_in?
+  def check_cat_ownership
+    unless current_is_owner?
+      redirect_to new_session_url
+    end
+  end
+
+  def current_is_owner?
+    @cat.user_id == current_user.id
+  end
+
+  helper_method :current_user, :signed_in?, :check_cat_ownership,
+                :current_is_owner?
 
 end

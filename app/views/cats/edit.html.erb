@@ -3,7 +3,7 @@
 <form action="<%= cat_url(@cat) %>" method="post">
   <%= render "form", cat: @cat %>
 
-  <input type="secret" name="_method" value="patch">
+  <input type="hidden" name="_method" value="patch">
 
   <input type="submit" value="Update Purring Machine">
 </form>

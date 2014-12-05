@@ -14,7 +14,7 @@
 <select name="cat[color]" id="cat_color">
   <option value=""></option>
   <% Cat::COLORS.each do |color| %>
-    <option value="<%= color %>" selected="<%@cat.color == color%>"><%= color.capitalize %></option>
+    <option value="<%= color %>" <%= 'selected' if @cat.color == color %>><%= color.capitalize %></option>
   <% end %>
 </select>
 <label for="cat_color">Color</label>

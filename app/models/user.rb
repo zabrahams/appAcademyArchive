@@ -7,10 +7,13 @@ class User < ActiveRecord::Base
 
   after_initialize :set_session_token!
 
+  has_many(:cats, class_name: 'Cat', foreign_key: :user_id, primary_key: :id)
+  has_many(:requests, class_name: 'CatRentalRequest', foreign_key: :user_id, primary_key: :id)
+
   def self.find_by_credentials(credentials)
     user_name, password = credentials[:user_name], credentials[:password]
     user = find_by_user_name(user_name)
-    return nil unless user.is_password?(password)
+    return nil unless user && user.is_password?(password)
     user
   end
 
@@ -20,7 +23,7 @@ class User < ActiveRecord::Base
 
   def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64
-    self.save! 
+    self.save!
   end
 
   def password=(password)

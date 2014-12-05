@@ -22,7 +22,8 @@
   <% @requests.each do |request| %>
     <li>
       <%= "#{request.start_date} to #{request.end_date} Status: #{request.status}" %>
-      <% if request.pending? %>
+      <%= "Request made by: #{request.requester.user_name}" %>
+      <% if request.pending? && current_is_owner? %>
         <%= button_to "Approve", approve_cat_rental_request_url(request), method: 'patch' %>
         <%= button_to "Deny", deny_cat_rental_request_url(request), method: 'patch' %>
       <% end %>

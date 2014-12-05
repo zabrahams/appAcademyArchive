@@ -1,13 +1,14 @@
 class CatRentalRequest < ActiveRecord::Base
   STATUSES = %w(PENDING APPROVED DENIED)
 
-  validates :cat_id, :start_date, :end_date, :status, presence: true
+  validates :cat_id, :start_date, :end_date, :status, :user_id, presence: true
   validates :status, inclusion: {in: STATUSES }
   validate :no_approved_overlapping_requests
 
   before_validation :set_initial_status
 
   belongs_to(:cat, class_name: 'Cat', foreign_key: :cat_id, primary_key: :id)
+  belongs_to(:requester, class_name: 'User', foreign_key: :user_id, primary_key: :id)
 
 
   def overlapping_requests
