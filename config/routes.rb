@@ -8,4 +8,6 @@ Ninety9cats::Application.routes.draw do
       patch 'deny', as: 'deny'
     end
   end
+  resource :users, only: [:new, :create]
+  resource :session, only: [:new, :create]
 end
