@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates :user_name, :session_token, uniqueness: true
   validates :password, length: {minimum: 6}, allow_nil: true
 
-  after_initialize :reset_session_token!
+  after_initialize :set_session_token!
 
   def self.find_by_credentials(credentials)
     user_name, password = credentials[:user_name], credentials[:password]
@@ -14,8 +14,13 @@ class User < ActiveRecord::Base
     user
   end
 
+  def set_session_token!
+    self.session_token ||= SecureRandom::urlsafe_base64
+  end
+
   def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64
+    self.save! 
   end
 
   def password=(password)

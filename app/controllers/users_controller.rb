@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:token] = @user.session_token
+      login_user!
       redirect_to cats_url
     else
       redirect_to :new

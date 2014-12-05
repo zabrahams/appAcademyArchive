@@ -9,5 +9,5 @@ Ninety9cats::Application.routes.draw do
     end
   end
   resource :users, only: [:new, :create]
-  resource :session, only: [:new, :create]
+  resource :session, only: [:new, :create, :destroy]
 end

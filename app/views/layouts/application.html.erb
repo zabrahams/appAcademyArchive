@@ -5,6 +5,17 @@
 </head>
 <body>
 
+<% if signed_in? %>
+  <div id="user_login">Hello <%= current_user.user_name %></div>
+  <form action="<%= session_url %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="logout">
+  </form>
+<% else %>
+  <a href="<%= new_session_url %>">Login</a>
+<% end %>
+
 <%= yield %>
 
 </body>

@@ -1,10 +1,8 @@
 class CatRentalRequest < ActiveRecord::Base
-  def self.statuses
-    %w(PENDING APPROVED DENIED)
-  end
+  STATUSES = %w(PENDING APPROVED DENIED)
 
   validates :cat_id, :start_date, :end_date, :status, presence: true
-  validates :status, inclusion: {in: CatRentalRequest.statuses }
+  validates :status, inclusion: {in: STATUSES }
   validate :no_approved_overlapping_requests
 
   before_validation :set_initial_status
@@ -14,14 +12,15 @@ class CatRentalRequest < ActiveRecord::Base
 
   def overlapping_requests
 
-    date_condition = "(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?)
-                      OR (start_date < ? AND end_date > ?)"
-    query_params = [self.start_date, self.end_date] * 3
-    
+    #date_condition = "(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?)
+    #                  OR (start_date < ? AND end_date > ?)"
+
+    date_condition = "NOT ((start_date > ?) OR (end_date < ?))"
+
     requests = CatRentalRequest
                 .all
                 .where(cat_id: self.cat_id)
-                .where(date_condition, *query_params)
+                .where(date_condition, self.start_date, self.end_date)
                 .where("id IS NULL OR id != ?", self.id)
   end
 

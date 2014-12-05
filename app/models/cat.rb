@@ -1,11 +1,8 @@
 class Cat < ActiveRecord::Base
-
-  def self.colors
-    %w(black white orange tabby calico lime_green)
-  end
+  COLORS = %w(black white orange tabby calico lime_green)
 
   validates :birth_date, :color, :name, :sex, :description, presence: true
-  validates :color, inclusion: { in: Cat.colors }
+  validates :color, inclusion: { in: COLORS }
   validates :sex, inclusion: { in: %w(M F) }
 
   has_many(:rental_requests, class_name: 'CatRentalRequest',

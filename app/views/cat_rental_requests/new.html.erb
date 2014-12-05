@@ -1,11 +1,12 @@
 <h1>Make a new request, if you want, or something.</h1>
 
 <form action="<%= cat_rental_requests_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
   <select name="cat_rental_request[cat_id]" id="cat_rental_request_cat_id">
     <option value=""></option>
     <% Cat.all.each do |cat| %>
-      <option value="<%= cat.id %>" selected="<%= cat.id == (@crr.cat_id || (params[cat] && params[cat][:id]))%>">
+      <option value="<%= cat.id %>" <%= 'selected' if cat.id.to_s == (params[:cat][:id] if params[:cat] || @crr.cat_id)%> >
         <%= cat.name %>
       </option>
     <% end %>

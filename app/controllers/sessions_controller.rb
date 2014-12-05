@@ -5,8 +5,9 @@ class SessionsController < ApplicationController
       @user = User.new(session_params)
       render :new
     else
-      @user.reset_session_token!
       session[:token] = @user.session_token
+      login_user!
+      # debugger
       redirect_to cats_url
     end
 
@@ -18,8 +19,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:token] = nil
     current_user.reset_session_token!
+    session[:token] = nil
+    redirect_to cats_url
   end
 
   private
