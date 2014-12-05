@@ -5,7 +5,12 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return nil unless session[:token]
-    @cu ||= User.find_by(session_token: session[:token])
+    unless @cu
+      id_to_find = Session.find_by(token: session[:token]).user_id
+      @cu =  User.find(id_to_find)
+    end
+
+    @cu
   end
 
   def signed_in?
@@ -13,8 +18,8 @@ class ApplicationController < ActionController::Base
   end
 
   def login_user!
-    current_user.reset_session_token!
-    session[:token] = current_user.session_token
+    new_session = @user.sessions.create!
+    session[:token] = new_session.token
   end
 
   def check_cat_ownership

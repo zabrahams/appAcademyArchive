@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
       @user = User.new(session_params)
       render :new
     else
-      session[:token] = @user.session_token
       login_user!
       redirect_to cats_url
     end
@@ -18,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.reset_session_token!
+    Session.find_by(token: session[:token]).destroy!
     session[:token] = nil
     redirect_to cats_url
   end

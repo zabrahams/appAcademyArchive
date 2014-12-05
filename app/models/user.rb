@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_many(:cats, class_name: 'Cat', foreign_key: :user_id, primary_key: :id)
   has_many(:requests, class_name: 'CatRentalRequest', foreign_key: :user_id, primary_key: :id)
+  has_many(:sessions, class_name: 'Session', inverse_of: :user,
+           foreign_key: :user_id, primary_key: :id)
 
   def self.find_by_credentials(credentials)
     user_name, password = credentials[:user_name], credentials[:password]
