@@ -6,14 +6,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    fail
     if @user.save
       session[:token] = @user.session_token
       login_user!
       redirect_to cats_url
     else
-      flash.now[:errors] = @user.errors.full_messages
-      redirect_to :new
+      flash[:errors] = @user.errors.full_messages
+      redirect_to new_users_url
     end
   end
 
