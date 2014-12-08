@@ -1,14 +1,21 @@
 Music::Application.routes.draw do
 
-  resource :users, only: [:new, :create, :show]
+  root to: 'bands#index'
+
+  resources :users, only: [:new, :create] do
+    collection do
+      get 'activate'
+    end
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   resources :bands do
-    resource :album, only: :new
+    resources :albums, only: :new
   end
 
   resources :albums, only: [:create, :edit, :show, :update, :destroy] do
-    resource :track, only: :new
+    resources :tracks, only: :new
   end
 
   resources :tracks, only: [:create, :edit, :show, :update, :destroy]

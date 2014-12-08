@@ -10,19 +10,24 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in(@user)
-      redirect_to bands_url
+      flash[:notice] = "New User Created. Please Activate Your Account."
+      redirect_to new_session_url
     else
       flash.now[:errors] = @user.errors.full_messages
       render :new
     end
   end
 
-  def show
-    @user = current_user
-    render :show
+  def activate
+    @user = User.find_by(activation_token: params[:activation_token])
+    @user.toggle(:activated)
+    if @user.save
+      flash[:notice] = "Account Activated"
+    else
+      flash[:errors] = @user.errors.full_messages
+    end
+    redirect_to new_session_url
   end
-
 
   private
 

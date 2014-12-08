@@ -23,7 +23,7 @@ class BandsController < ApplicationController
       flash[:notice] = "You have created a new band: #{@band.name}."
       redirect_to band_url(@band)
     else
-      flash[:errors] = @band.errors.full_messages
+      flash.now[:errors] = @band.errors.full_messages
       render :new
     end
   end
@@ -39,7 +39,7 @@ class BandsController < ApplicationController
       flash[:notice] = "You have updated #{@band.name}"
       redirect_to band_url(@band)
     else
-      flash[:errors] = @band.errors.full_messages
+      flash.now[:errors] = @band.errors.full_messages
       render :edit
     end
   end

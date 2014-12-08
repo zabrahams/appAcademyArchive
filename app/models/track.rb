@@ -5,7 +5,7 @@ class Track < ActiveRecord::Base
   validates :album, :title, :kind, presence: true
   validates :kind, inclusion: KIND
 
-  has_many :notes, inverse_of: :track
+  has_many :notes, inverse_of: :track, dependent: :destroy
   belongs_to :album
 
 end

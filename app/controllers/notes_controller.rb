@@ -14,13 +14,14 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
-    if @note.user_id = current_user.id
+    if @note.user_id == current_user.id
       flash[:notice] = "Note Deleted"
       @track = @note.track
       @note.destroy
       redirect_to track_url(@track)
     else
       render test: "You don't have permission to delete that note", status: 403
+    end
   end
 
   private

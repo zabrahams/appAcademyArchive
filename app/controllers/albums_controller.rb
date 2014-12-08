@@ -40,7 +40,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = "#{album.title} destroyed!!!!!"
+    flash[:notice] = "#{@album.title} destroyed!!!!!"
     @band = @album.band
     @album.destroy
     redirect_to band_url(@band)
