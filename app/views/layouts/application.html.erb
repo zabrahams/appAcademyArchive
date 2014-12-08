@@ -14,6 +14,10 @@
 </form>
 <% end %>
 
+<% if flash[:notice] %>
+<h4><%= flash[:notice] %></h4>
+<% end %>
+
 <%= yield %>
 
 </body>

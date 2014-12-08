@@ -1,0 +1,28 @@
+<h1>Album: <%= @album.title %></h1>
+<br>
+
+<table>
+  <tr>
+    <th>Band</th>
+    <th>Title</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td><%= @band.name %></td>
+    <td><%= @album.title %></td>
+    <td><%= @album.kind %></td>
+  </tr>
+</table>
+<br>
+<br>
+
+<a href="<%= edit_album_url(@album) %>">Edit <%= @album.title %></a>
+<br>
+<a href="<%= band_url(@band) %>">Back to <%= @band.name %>'s Index</a>
+
+<form action="<%= album_url(@album) %>" method="post">
+  <%= authenticity_token %>
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Destroy Album">
+</form>
+<br>
