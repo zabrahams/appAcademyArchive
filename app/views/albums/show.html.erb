@@ -16,6 +16,18 @@
 <br>
 <br>
 
+<label>Tracks:</label>
+<% if @tracks %>
+<ul>
+  <% @tracks.each do |track| %>
+    <li><a href="<%= track_url(track) %>"><%= track.title %></a></li>
+  <% end %>
+</ul>
+<% end %>
+<br>
+
+<a href="<%= new_album_track_url(@album) %>">New Track</a>
+<br>
 <a href="<%= edit_album_url(@album) %>">Edit <%= @album.title %></a>
 <br>
 <a href="<%= band_url(@band) %>">Back to <%= @band.name %>'s Index</a>

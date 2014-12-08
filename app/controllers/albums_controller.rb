@@ -20,6 +20,7 @@ class AlbumsController < ApplicationController
 
   def show
     @band = @album.band
+    @tracks = @album.tracks
     render :show
   end
 
