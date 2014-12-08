@@ -1,5 +1,7 @@
 class BandsController < ApplicationController
 
+  before_action :require_login
+
   def index
     @bands = Band.all
     render :index

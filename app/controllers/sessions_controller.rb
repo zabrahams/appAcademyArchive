@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
                                      params[:user][:password])
     if @user
       sign_in(@user)
-      redirect_to users_url
+      redirect_to bands_url
     else
       @user = User.new
       flash.now[:errors] = ["No such email/password"]
