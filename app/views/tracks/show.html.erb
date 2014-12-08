@@ -29,3 +29,7 @@
   <input type="submit" value="Destroy Track">
 </form>
 <br>
+
+<%= render @track.notes %>
+
+<%= render 'notes/form', track: @track %>
