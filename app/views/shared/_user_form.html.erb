@@ -1,0 +1,16 @@
+<% button = (action == users_url ? "Sign Up" : "Sign In") %>
+
+<form action="<%= action %>" method="post">
+
+<label for="user_email">Email</label>
+<input type="text" name="user[email]" value="<%= user.email %>" id="user_email">
+<br>
+
+<label for="user_password">Password</label>
+<input type="password" name="user[password]" value="<%= user.password %>" id="user_password">
+<br>
+
+<%= authenticity_token %>
+<input type="submit" value="<%= button %>">
+
+</form>
