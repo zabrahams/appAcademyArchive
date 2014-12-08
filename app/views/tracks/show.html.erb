@@ -14,7 +14,7 @@
 <br>
 
 <label>Lyrics: </label>
-<p><%= @track.lyrics %></p>
+<p><%= ugly_lyrics(@track.lyrics) if @track.lyrics%></p>
 <br>
 
 

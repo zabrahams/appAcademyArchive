@@ -11,4 +11,11 @@ module ApplicationHelper
     auth_string.html_safe
   end
 
+  def ugly_lyrics(lyrics)
+    lyrics = lyrics
+              .split("\n")
+              .map { |line| "&#9835 #{h(line)}"}
+              .join("\n")
+    "<pre>#{lyrics}</pre>".html_safe
+  end
 end
