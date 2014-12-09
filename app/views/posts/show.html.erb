@@ -1,0 +1,9 @@
+<h1><%= link_to @post.title, @post.url %></h1>
+
+<div>
+  <%= @post.content %>
+</div>
+
+<% if @post.author_id == current_user.id %>
+  <%= link_to "Edit", edit_post_url(@post) %>
+<% end %>
