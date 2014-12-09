@@ -1,0 +1,14 @@
+<form action="<%= comments_url %>" method="POST">
+  <%= form_token %>
+
+  <label for="comment_content">Leave a comment</label>
+  <textarea name="comment[content]" id="comment_content"></textarea>
+
+  <% unless parent_comment_id.nil? %>
+    <input type="hidden" name="comment[parent_comment_id]" value="<%= parent_comment_id %>">
+  <% end %>
+
+  <input type="hidden" name="comment[post_id]" value="<%= post.id %>">
+  <input type="submit" value="Submit Comment">
+
+</form>

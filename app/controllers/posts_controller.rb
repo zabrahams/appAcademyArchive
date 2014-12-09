@@ -21,6 +21,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comments_hash = @post.comments_by_parent_id
     render :show
   end
 

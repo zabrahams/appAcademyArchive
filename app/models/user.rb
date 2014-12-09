@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :subs, foreign_key: :moderator_id, inverse_of: :moderator
   has_many :posts, foreign_key: :author_id, inverse_of: :author
+  has_many :comments, foreign_key: :author_id
 
   after_initialize :ensure_session_token
 
@@ -38,5 +39,14 @@ class User < ActiveRecord::Base
     self.session_token = generate_session_token
     save!
   end
+
+  private
+
+  def go_away_snowman_hacker
+    if self.username.include('☃')
+      errors[:username] << "Go away ☃man hacker."
+    end
+  end
+
 
 end

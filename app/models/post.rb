@@ -7,9 +7,17 @@ class Post < ActiveRecord::Base
 
   has_many :post_subs, dependent: :destroy
   has_many :subs, through: :post_subs
+  has_many :comments
+
+  def comments_by_parent_id
+    hash = Hash.new { |h, v| h[v] = [] }
+    self.comments.each do |comment|
+      hash[comment.parent_comment_id] << comment
+    end
+    hash
+  end
 
   private
-
 
   def valid_url
     unless url.nil? || url[0..6] == "http://"
