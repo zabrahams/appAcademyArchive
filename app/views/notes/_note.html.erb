@@ -3,7 +3,7 @@
 <br>
 <label>by:</label><%= user.email %>
 <br>
-<% if user == current_user %>
+<% if user == current_user && admin? %>
 <form action="<%= note_url(note) %>" method="post">
   <%= authenticity_token %>
   <input type="hidden" name="_method" value="delete">

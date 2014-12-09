@@ -1,6 +1,8 @@
 class NotesController < ApplicationController
 
   before_action :require_login
+  before_action :require_admin
+  before_action :require_ownership, only: :destroy
 
   def create
     @note = current_user.notes.new(note_params)
@@ -28,6 +30,14 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:body, :track_id)
+  end
+
+  def require_ownership
+    @note = Node.find(params[:id])
+    unless @note.user_id = current_user.id
+      flash[:notice] = "You do not have permission to delete that note"
+      redirect_to tracks_url(@note.track_id)
+    end
   end
 
 end

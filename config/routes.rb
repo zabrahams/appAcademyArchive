@@ -2,9 +2,12 @@ Music::Application.routes.draw do
 
   root to: 'bands#index'
 
-  resources :users, only: [:new, :create] do
+  resources :users, only: [:index, :new, :create] do
     collection do
       get 'activate'
+    end
+    member do
+      post 'make_admin'
     end
   end
 

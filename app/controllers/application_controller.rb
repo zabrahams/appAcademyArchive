@@ -23,9 +23,23 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to new_session_url unless signed_in?
+    unless signed_in?
+      flash[:notice] = "Must be logged in to access that page"
+      redirect_to new_session_url
+    end
   end
 
-  helper_method :current_user, :signed_in?
+  def admin?
+    current_user.admin
+  end
+
+  def require_admin
+    unless admin?
+      flash[:notice] = "Must be an admin to access that function"
+      redirect_to bands_url
+    end
+  end
+
+  helper_method :current_user, :signed_in?, :admin?
 
 end

@@ -26,15 +26,18 @@
 <% end %>
 <br>
 
-<a href="<%= new_album_track_url(@album) %>">New Track</a>
-<br>
-<a href="<%= edit_album_url(@album) %>">Edit <%= @album.title %></a>
-<br>
-<a href="<%= band_url(@band) %>">Back to <%= @band.name %>'s Index</a>
+<% if admin? %>
+  <a href="<%= new_album_track_url(@album) %>">New Track</a>
+  <br>
+  <a href="<%= edit_album_url(@album) %>">Edit <%= @album.title %></a>
+  <br>
 
-<form action="<%= album_url(@album) %>" method="post">
-  <%= authenticity_token %>
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Destroy Album">
-</form>
-<br>
+  <form action="<%= album_url(@album) %>" method="post">
+    <%= authenticity_token %>
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Destroy Album">
+  </form>
+  <br>
+<% end %>
+
+<a href="<%= band_url(@band) %>">Back to <%= @band.name %>'s Index</a>

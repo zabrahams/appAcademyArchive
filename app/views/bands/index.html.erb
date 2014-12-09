@@ -2,4 +2,6 @@
 
 <%= render @bands %>
 
+<% if admin? %>
 <a href="<%= new_band_url %>">Form a new band</a>
+<% end %>

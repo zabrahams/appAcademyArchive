@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates :email, :password_digest, :session_token,
             :activation_token, presence: true
   validates :email, uniqueness: true
-  validates :activated, inclusion: [true, false]
+  validates :activated, :admin, inclusion: [true, false]
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :notes, inverse_of: :user

@@ -2,6 +2,7 @@ class TracksController < ApplicationController
 
   before_action :require_login
   before_action :set_track, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @track = Track.new
