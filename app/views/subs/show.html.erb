@@ -1,3 +1,6 @@
+<% if current_user.id == @sub.moderator_id %>
+  <%= link_to "Edit Sub", edit_sub_url(@sub) %>
+<% end %>
 <div>
   <%= @sub.title %>
 </div>

@@ -1,8 +1,8 @@
 <% button_text = sub.persisted? ? "Update" : "Create" %>
 <% method = sub.persisted? ? "<input type='hidden' name='_method' value='PATCH'>" : "" %>
 
-<form action="<%= the_url %>" method="POST">
-  <%= method %>
+<form action="<%= the_url %>" method="POST">
+  <%= method.html_safe %>
   <%= form_token %>
 
   <label for="sub_title">Title</label>
