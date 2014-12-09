@@ -8,3 +8,13 @@
 <div>
   <%= @sub.description %>
 </div>
+
+<% @posts.each do |post| %>
+  <div>
+    <h3><%= link_to post.title, post.url %></h3>
+    <p>
+      <%= post.content %>
+    </p>
+    Author: <%= post.author.username %>
+  </div>
+<% end %>

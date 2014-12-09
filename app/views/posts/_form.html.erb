@@ -11,12 +11,15 @@
   <label for="post_content">Content</label>
   <textarea name="post[content]" id="post_content"><%= post.content %></textarea>
 
-  <label for="post_sub_id">Sub</label>
-  <select name="post[sub_id]" id="post_sub_id">
-    <% Sub.all.each do |sub| %>
-      <option value="<%= sub.id %>" <%= "selected" if sub.id == @post.sub_id %>><%= sub.title %></option>
-    <% end %>
-  </select>
+  <br>
+  <% Sub.all.each do |sub| %>
+    <input type="checkbox" name="post[sub_ids][]"
+           id="post_sub_id_<%= sub.id %>" value="<%= sub.id %>"
+           <%= "checked" if post.sub_id == sub.id %>>
+    <label for="post_sub_id<%= sub.id %>"><%= sub.title %></label>
+    <br>
+  <% end %>
+
 
   <input type="submit" value="<%= button_text(post) %>">
 
