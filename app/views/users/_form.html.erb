@@ -1,0 +1,15 @@
+<% button_text = (path == users_url ? "Sign Up" : "Sign In") %>
+
+<form action="<%= path %>" method="post">
+
+  <%= form_token %>
+
+  <label for="user_username">Username</label>
+  <input type="text" name="user[username]" id="user_username" value="<%= user.username %>">
+
+  <label for="user_password">Password</label>
+  <input type="password" name="user[password]" id="user_password" value="">
+
+  <input type="submit" value="<%= button_text %>">
+
+</form>
