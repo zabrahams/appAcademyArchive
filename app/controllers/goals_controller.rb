@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
 
-  before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy, :completed]
   before_action :require_ownership, only: [:edit, :update, :destroy]
 
   def index
@@ -49,6 +49,11 @@ class GoalsController < ApplicationController
     @goal = Goal.find(params[:id])
     @goal.destroy
     redirect_to goals_url
+  end
+
+  def completed
+    @goals = current_user.goals.where(completed: true)
+    render :completed
   end
 
   private
