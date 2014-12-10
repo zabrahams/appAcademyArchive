@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
 
+  root to: 'sessions#new'
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]
   resources :subs
   resources :posts, only: [:new, :create, :show, :edit, :update] do
     resources :comments, only: [:new]
+    member do
+     post 'upvote'
+     post 'downvote'
+    end
   end
-  resources :comments, only: [:create, :show]
+  resources :comments, only: [:create, :show] do
+    member do
+      post 'upvote'
+      post 'downvote'
+    end
+  end
   get 'forbidden' => 'static_pages#forbidden', as: :forbidden
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -32,7 +32,12 @@ class SubsController < ApplicationController
 
   def show
     @sub = Sub.find(params[:id])
-    @posts = @sub.posts.includes(:author)
+    @posts = @sub.posts
+      .joins("INNER JOIN votes ON posts.id = votes.votable_id")
+      .group("posts.id")
+      .order("SUM(votes.value) DESC")
+      .includes(:author)
+
     render :show
   end
 

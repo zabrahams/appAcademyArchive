@@ -16,5 +16,17 @@
       <%= post.content %>
     </p>
     Author: <%= post.author.username %>
+    Votes: <%= post.vote_total %>
+
+    <form action="<%= upvote_post_url(post) %>" method="post">
+      <%= form_token %>
+      <input type="submit" value="Upvote">
+    </form>
+
+    <form action="<%= downvote_post_url(post) %>" method="post">
+      <%= form_token %>
+      <input type="submit" value="Downvote">
+    </form>
+
   </div>
 <% end %>

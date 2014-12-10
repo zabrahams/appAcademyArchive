@@ -43,6 +43,20 @@ class PostsController < ApplicationController
     end
   end
 
+  def upvote
+    @post = Post.find(params[:id])
+    @vote = Vote.new(value: 1, votable_id: @post.id, votable_type: "Post" )
+    @vote.save
+    redirect_to request.referer
+  end
+
+  def downvote
+    @post = Post.find(params[:id])
+    @vote = Vote.new(value: -1, votable_id: @post.id, votable_type: "Post" )
+    @vote.save
+    redirect_to request.referer
+  end
+
   private
 
   def post_params
