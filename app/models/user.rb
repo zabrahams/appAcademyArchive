@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, :session_token, presence: true
   validates :username, :session_token, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}
+
   after_initialize :ensure_session_token
+
+  has_many :goals, foreign_key: :author_id, dependent: :destroy
 
   def password=(password)
     @password = password
@@ -30,5 +33,5 @@ class User < ActiveRecord::Base
     user.is_password?(password) ? user : nil
   end
 
-  
+
 end

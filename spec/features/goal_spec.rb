@@ -18,7 +18,7 @@ feature "create new goal" do
     fill_in "Body", with: "Eat less in general"
     choose('Public')
     uncheck('Completed')
-    click_button('Submit')
+    click_button('Create')
     expect(page).to have_content 'New Diet'
 
   end
@@ -40,9 +40,9 @@ end
 
 feature "edit a goal" do
   let(:user) { create(:user) }
-  before { signin(user.username, user.password) }
-
   let(:goal) { create(:completed_goal) }
+  let(:goal2) { create(:completed_goal, author_id: 2)}
+  before { signin(user.username, user.password) }
 
   scenario "has goal edit page" do
       visit edit_goal_url(goal)
@@ -51,7 +51,6 @@ feature "edit a goal" do
   end
 
   scenario "can only edit own goals" do
-    let(:goal2) { create(:completed_goal, user_id: 2)}
     visit edit_goal_url(goal2)
     expect(page).to have_content "You can't edit that goal!"
   end
@@ -60,6 +59,8 @@ end
 
 feature "delete a goal" do
   let(:user) { create(:user) }
+  let(:goal3) { create(:completed_goal, author_id: 2) }
+  let(:goal) { create(:completed_goal) }
   before { signin(user.username, user.password) }
 
 
@@ -70,7 +71,6 @@ feature "delete a goal" do
   end
 
   scenario "can not destory other's goals" do
-    let(:goal3) { create(:completed_goal, user_id: 2) }
     visit goal_url(goal3)
     expect(page).to_not have_content "Delete"
   end

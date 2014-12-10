@@ -1,0 +1,12 @@
+<h1>All the goal</h1>
+
+
+<ul>
+<% @goals.each do |goal| %>
+  <li>
+    <% if goal.pub_status? || goal.author_id == current_user.id %>
+    <%= link_to "#{goal.title}", goal_url(goal) %>
+    <% end %>
+  </li>
+<% end %>
+</ul>

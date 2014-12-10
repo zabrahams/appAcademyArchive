@@ -1,0 +1,11 @@
+<h1><%= @goal.title %></h2>
+
+  <%= @goal.body %>
+<br>
+<br>
+<label> Completed? </label>
+<input type="checkbox" checked="<%=@goal.completed  %>">
+
+<% if current_user.id == @goal.author_id %>
+<%= button_to "Delete", goal_url(@goal), method: 'delete' %>
+<% end %>

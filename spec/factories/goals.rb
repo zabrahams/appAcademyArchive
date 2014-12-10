@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :goal do
-    title Faker::Lorem.words(4)
+    title Faker::Lorem.words(4).join(" ")
     body Faker::Lorem.sentence(5)
-    user_id 1
-    pub_status [1,0].sample == 1 ? true : false
+    author_id 1
+    pub_status ([1,0].sample == 1 ? true : false)
 
     factory :completed_goal do
       completed true
