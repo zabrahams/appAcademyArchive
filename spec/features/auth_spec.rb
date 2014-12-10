@@ -44,9 +44,9 @@ feature "logging out" do
   end
 
   scenario "doesn't show username on the homepage after logout" do
-    signup(user.username, user.password)
+    signin(new_user.username, new_user.password)
     click_button "Logout"
-    expect(page).to_not have_content user.username
+    expect(page).to_not have_content new_user.username
   end
 
 end
