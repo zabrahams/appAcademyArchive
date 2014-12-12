@@ -102,9 +102,19 @@ Array.prototype.includes = function(value) {
   return false;
 }
 
+var poss_coins = function(number, coins) {
+  var p_coins = coins.slice(0);
+  while (p_coins[0] > number) {
+    p_coins.shift();
+  }
+  return p_coins;
+};
+
 
 
 var makeChange = function(number, coins) {
+  console.log(coins);
+  var coins = poss_coins(number, coins);
   if (coins.length === 0 && number) {
     return null;
   }
@@ -112,25 +122,68 @@ var makeChange = function(number, coins) {
     return [number];
   }
   else {
+
     var best_coins = null;
     var min_size = Number.POSITIVE_INFINITY;
     for ( var i = 0; i < coins.length; i++) {
       var coin = coins[i];
-      if (coin > number) {
-        return makeChange(number, coins.slice(1,coins.length));
-      }
-      else {
-        var prev_coins = makeChange(number - coin, coins);
-        if (prev_coins) {
-          prev_coins.unshift(coin);
-          if (prev_coins.length < min_size) {
-            min_size = prev_coins.length;
-            best_coins = prev_coins;
-          }
+      var prev_coins = makeChange(number - coin, coins);
+      console.log(prev_coins);
+      if (prev_coins) {
+        prev_coins.unshift(coin);
+        if (prev_coins.length < min_size) {
+          min_size = prev_coins.length;
+          best_coins = prev_coins;
         }
       }
     };
 
     return best_coins;
   }
+};
+
+var merge = function(arr1, arr2) {
+  var container = [];
+
+  while (arr1.length > 0 && arr2.length > 0) {
+    arr1[0] < arr2[0] ? container.push(arr1.shift()) : container.push(arr2.shift()) ;
+  }
+
+  container = (arr1.length === 0 ? container.concat(arr2) : container.concat(arr1) );
+
+  return container;
+};
+
+
+var mergeSort = function(array) {
+  if (array.length === 0) {
+    return [];
+  }
+  else if (array.length === 1) {
+    return array;
+  }
+  else {
+    var midpoint = Math.floor(array.length / 2);
+
+    var left = mergeSort(array.slice(0,midpoint));
+    var right = mergeSort(array.slice(midpoint,array.length));
+
+    return merge(left,right);
+  }
+};
+
+var subSets = function(array) {
+  if (array.length === 0) {
+    return [[]];
+  }
+  else {
+    var prevSubs = subSets(array.slice(1,array.length));
+    var container = [];
+    prevSubs.forEach( function(sub) {
+      container.push(sub);
+      var bigSub = [array[0]].concat(sub);
+      container.push(bigSub);
+    })
+  }
+  return container;
 };
