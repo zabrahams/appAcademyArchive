@@ -54,6 +54,14 @@ Board.prototype.hasMove = function (color) {
  * Checks if every position on the Board is occupied.
  */
 Board.prototype.isFull = function () {
+  for (var i = 0; i < this.grid.length; i++ ) {
+    for (var j = 0; j < this.grid[i].length; j++ ) {
+      if (!(this.isOccupied([i, j]))) {
+        return false
+      }
+    }
+  }
+  return true
 };
 
 /**
@@ -61,6 +69,9 @@ Board.prototype.isFull = function () {
  * matches a given color.
  */
 Board.prototype.isMine = function (pos, color) {
+  if (!this.isOccupied(pos)) {
+    return undefined
+  }
   return (this.grid[pos[0]][pos[1]].color === color);
 };
 
@@ -100,12 +111,17 @@ Board.prototype.isValidPos = function (pos) {
  */
 function _positionsToFlip (board, pos, color, dir, piecesToFlip) {
   var next_pos = [pos[0]+dir[0], pos[1]+dir[1]];
-  if (!(this.isValidPos(next_pos)) ||
-      !(this.isOccupied(next_pos)) {
+  if (!(this.isValidPos(next_pos)) || !(this.isOccupied(next_pos))) {
     return null;
   }
   else {
-    piecesToFlip.push(this.getPiece(pos))
+    piecesToFlip.push(this.getPiece(pos));
+    if (this.getPiece(next_pos).color === color) {
+      return piecesToFlip;
+    }
+    else {
+      return _positions_toFlip(this, next_pos, color, dir, piecesToFlip);
+    }
   }
 }
 
@@ -132,6 +148,13 @@ Board.prototype.print = function () {
  */
 Board.prototype.validMove = function (pos, color) {
 
+  // iterate through Board.dirs
+  var piecesToFlip = []
+  for (var i = 0; i < Board.DIRS; i++) {
+    var a = (this._positions_to_flip(this, pos, color, Board.DORS[i], [] ));
+    console.log(a);
+  }
+  return (!this.isOccupied(pos) && piecesToFlip.length > 0);
 };
 
 /**
@@ -139,6 +162,15 @@ Board.prototype.validMove = function (pos, color) {
  * the Board for a given color.
  */
 Board.prototype.validMoves = function (color) {
+  var moves = [];
+  for (var i = 0; i < this.grid.length; i++ ) {
+    for (var j = 0; j < this.grid[i].length; j++) {
+      if (this.validMove([i,j])) {
+        moves.push([i,j]);
+      }
+    }
+  }
+  return moves;
 };
 
 module.exports = Board;
