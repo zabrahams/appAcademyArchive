@@ -14,12 +14,12 @@ Board.makeGrid = function () {
 }
 
 Board.prototype.isEmpty = function (pos) {
-    return this.grid[pos[0], pos[1]] === undefined;
+    return (this.grid[pos[0]][pos[1]] === undefined);
 }
 
 Board.prototype.placeMark = function (pos, mark) {
     if (this.isEmpty(pos)) {
-        this.grid[pos[0], pos[1]] = mark;
+        this.grid[pos[0]][pos[1]] = mark;
     } else {
         throw new Error("There is already a mark there.");
     }
@@ -97,6 +97,17 @@ Board.prototype.isWonDiag = function () {
     }
 }
 
+Board.prototype.print = function() {
+    for (var i = 0; i < Board.SIZE; i++) {
+        var row = [];
+        for (var j = 0; j < Board.SIZE; j++) {
+            var el = this.grid[i][j];
+            row.push(el === undefined ? " " : el);
+        }
+        console.log(row.join(" "));
+    }
+}
+
 
 
 //
@@ -110,4 +121,5 @@ Board.prototype.isWonDiag = function () {
 1. Custom errors?
 2. Modular board size
 3. Make win conditions not suck
+4. Print
 */
