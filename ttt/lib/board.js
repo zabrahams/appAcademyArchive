@@ -25,6 +25,17 @@ Board.prototype.placeMark = function (pos, mark) {
     }
 }
 
+Board.prototype.isFull = function () {
+    for (var i = 0; i < Board.SIZE; i++) {
+        for (var j = 0; j < Board.SIZE; j++) {
+            if (this.grid[i][j] === undefined) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 Board.prototype.isWon = function () {
     return this.isWonHor() || this.isWonVer() || this.isWonDiag();
 }
@@ -85,7 +96,7 @@ Board.prototype.isWonDiag = function () {
     count = 1;
     mark = this.grid[Board.SIZE - 1][Board.SIZE - 1];
     if (mark !== undefined) {
-        for (var i = Board.SIZE; i >= 0; i--) {
+        for (var i = Board.SIZE-2; i >= 0; i--) {
             if (this.grid[i][i] === mark) {
                 count += 1;
             }
@@ -107,6 +118,8 @@ Board.prototype.print = function() {
         console.log(row.join(" "));
     }
 }
+
+module.exports = Board;
 
 
 
