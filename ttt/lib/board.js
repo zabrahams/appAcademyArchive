@@ -109,13 +109,21 @@ Board.prototype.isWonDiag = function () {
 }
 
 Board.prototype.print = function() {
+    process.stdout.write('\u001B[2J\u001B[0;0f');
+    console.log("    0   1   2  "); //clears console
+    console.log("  ╔═══╦═══╦═══╗")
     for (var i = 0; i < Board.SIZE; i++) {
         var row = [];
         for (var j = 0; j < Board.SIZE; j++) {
             var el = this.grid[i][j];
             row.push(el === undefined ? " " : el);
         }
-        console.log(row.join(" "));
+        console.log(i + " ║ " + row.join(" ║ ") + " ║");
+        if (i < (Board.SIZE - 1)) {
+            console.log("  ╠═══╬═══╬═══╣");
+        } else {
+            console.log("  ╚═══╩═══╩═══╝");
+        }
     }
 }
 
@@ -134,5 +142,4 @@ module.exports = Board;
 1. Custom errors?
 2. Modular board size
 3. Make win conditions not suck
-4. Print
 */
