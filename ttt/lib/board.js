@@ -109,8 +109,8 @@ Board.prototype.isWonDiag = function () {
 }
 
 Board.prototype.print = function() {
-    process.stdout.write('\u001B[2J\u001B[0;0f');
-    console.log("    0   1   2  "); //clears console
+    process.stdout.write('\u001B[2J\u001B[0;0f'); //clears console
+    console.log("    0   1   2  ");
     console.log("  ╔═══╦═══╦═══╗")
     for (var i = 0; i < Board.SIZE; i++) {
         var row = [];
