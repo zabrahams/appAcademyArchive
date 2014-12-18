@@ -35,7 +35,7 @@ li.items.active {
   position: absolute;
   display: block;
   left: 0%;
-  -webkit-transition: left 1.5s;
+  -webkit-transition: left 0.5s;
 
 }
 

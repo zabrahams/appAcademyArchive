@@ -30,7 +30,9 @@ $.Carousel.prototype.slide = function(dir) {
       $oldSlide.one("transitionend", function (even) {
         console.log("transitionend")
         $(event.currentTarget).removeClass("active left right");
-        that.transitioning = false;
+        window.setTimeout(function() {
+          that.transitioning = false;
+        }, 50);
       });
     }
   }
