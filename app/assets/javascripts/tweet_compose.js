@@ -5,12 +5,24 @@ $.TweetCompose = function (el) {
 
   this.$el.on("submit", this.submit.bind(this));
   this.$textarea.on("input", this.updateCounter.bind(this));
+  this.$el.find(".add-mentioned-user").on("click", this.addMentionedUser.bind(this));
+  this.$el.find(".mentioned-users").on("click", "a", this.removeMentionedUser.bind(this));
 };
 
 $.fn.tweetCompose = function () {
   return this.each(function() {
     new $.TweetCompose(this);
   });
+};
+
+$.TweetCompose.prototype.addMentionedUser = function (event) {
+  var $script = this.$el.find("script");
+  var scriptHTML = $script.html();
+  this.$el.find("div.mentioned-users").append(scriptHTML);
+};
+
+$.TweetCompose.prototype.removeMentionedUser = function (event) {
+  $(event.currentTarget).parent().remove();
 };
 
 $.TweetCompose.prototype.updateCounter = function (event) {
@@ -23,19 +35,19 @@ $.TweetCompose.prototype.submit = function (event){
   event.preventDefault();
   var formData = this.$el.serialize();
   this.$inputs.prop("disabled", true);
-  var that = this;
 
   $.ajax({
     url: "/tweets",
     type: "POST",
     data: formData,
     dataType: "json",
-    success: that.handleSuccess.bind(that)
+    success: this.handleSuccess.bind(this)
   });
 }
 
 $.TweetCompose.prototype.clearInput = function () {
   this.$textarea.val("");
+  this.$el.find("div.mentioned-users").empty();
 };
 
 $.TweetCompose.prototype.handleSuccess = function (resp) {
