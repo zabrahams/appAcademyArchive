@@ -54,7 +54,8 @@ $.TweetCompose.prototype.handleSuccess = function (resp) {
   this.clearInput();
   this.updateCounter();
   this.$inputs.prop("disabled", false);
-  $(this.$el.attr("data-tweets-ul")).prepend("<li>" + JSON.stringify(resp) + "</li>");
+  // $(this.$el.attr("data-tweets-ul")).prepend("<li>" + JSON.stringify(resp) + "</li>");
+  $(document).trigger("insert-tweet", resp);
 };
 
 $(function () {

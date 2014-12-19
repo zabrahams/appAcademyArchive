@@ -4,6 +4,12 @@ $.InfiniteTweets = function (el) {
   this.tweetTemplate = _.template(this.$el.find("script").html());
 
   this.$el.find("a.fetch-more").on("click", this.fetchTweets.bind(this));
+  $(document).on("insert-tweet", this.insertTweets.bind(this));
+};
+
+$.InfiniteTweets.prototype.insertTweets = function (event, tweet) {
+  this.$el.find("#feed").append(this.tweetTemplate({tweets: [tweet]}));
+  this.maxCreatedAt = tweet.created_at;
 };
 
 $.InfiniteTweets.prototype.fetchTweets = function (event) {
