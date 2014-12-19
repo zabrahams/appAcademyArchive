@@ -1,6 +1,7 @@
 $.InfiniteTweets = function (el) {
   this.$el = $(el);
   this.maxCreatedAt = null;
+  this.tweetTemplate = _.template(this.$el.find("script").html());
 
   this.$el.find("a.fetch-more").on("click", this.fetchTweets.bind(this));
 };
@@ -26,11 +27,9 @@ $.InfiniteTweets.prototype.removeFetchTweets = function () {
 };
 
 $.InfiniteTweets.prototype.successfulFetch = function (resp) {
-  var that = this;
   if (resp.length > 0) {
-    resp.forEach(function (tweet) {
-      that.$el.find("#feed").append("<li>"+JSON.stringify(tweet)+"</li>");
-    });
+    this.$el.find("#feed").append(this.tweetTemplate({tweets: resp}));
+      // ("<li>"+JSON.stringify(tweet)+"</li>");
     this.maxCreatedAt = resp[resp.length - 1].created_at;
   }
   if (resp.length < 20) {

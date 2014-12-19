@@ -5,6 +5,15 @@
   <ul id="feed">
   </ul>
   <a href="javascript:void(0)" class="fetch-more">fetch more tweets!</a>
+  <script type="text/template">
+    <%% tweets.forEach(function (tweet) { %>
+      <li>
+        <%%= tweet.content %> --
+        <a href="/users/<%%= tweet.user_id %>"><%%= tweet.user.username %></a> -- 
+        <%%= tweet.created_at %>
+      </li>
+    <%% }) %>
+  </script>
 </div>
 
 <%= render "tweets/form" %>
