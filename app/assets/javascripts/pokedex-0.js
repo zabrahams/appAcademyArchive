@@ -10,7 +10,7 @@ Pokedex.Models.Toy = null; // WRITE ME IN PHASE 2
 
 Pokedex.Collections.Pokemon = Backbone.Collection.extend({
   url: "/pokemon",
-  model: Pokedex.Models.Pokemon 
+  model: Pokedex.Models.Pokemon
 });
 
 Pokedex.Collections.PokemonToys = null; // WRITE ME IN PHASE 2
@@ -44,6 +44,7 @@ window.Pokedex.RootView = function ($el) {
   this.$toyDetail = this.$el.find('.toy-detail');
 
   // Click handlers go here.
+  this.$pokeList.on("click", "li", this.selectPokemonFromList.bind(this));
 };
 
 $(function() {
