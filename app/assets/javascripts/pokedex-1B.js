@@ -6,6 +6,17 @@ Pokedex.RootView.prototype.renderPokemonDetail = function (pokemon) {
     var $deets = $("<div></div>").addClass(prop).append(prop + ": " + pokemon.escape(prop)+ " ");
     $detail.append($deets);
   });
+  var $ul = $("<ul class ='toys'></ul>")
+  $detail.append($ul);
+
+  var that = this;
+  pokemon.fetch({
+    success: function(pokemon){
+      pokemon.toys().forEach (function(toy) {
+        that.addToyToList.bind(that)(toy)
+      })
+    }
+  });
   this.$pokeDetail.html($detail);
 
 };
