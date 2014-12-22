@@ -3,7 +3,27 @@ window.Pokedex.Models = {};
 window.Pokedex.Collections = {};
 
 Pokedex.Models.Pokemon = Backbone.Model.extend({
-  urlRoot: "/pokemon"
+  urlRoot: "/pokemon",
+  validate: function(attributes) {
+    if (!attributes || !attributes.name || attributes.name === "") {
+      return "cannot have an empty name";
+    }
+    if (!attributes || !attributes.poke_type || attributes.poke_type === "") {
+      return "cannot have an empty poke_type";
+    }
+    if (!attributes || !attributes.image_url || attributes.image_url === "") {
+      return "cannot have an empty image_url";
+    }
+    if (!attributes || !attributes.attack || attributes.attack === "") {
+      return "cannot have an empty attack";
+    }
+    if (!attributes || !attributes.defense || attributes.defense === "") {
+      return "cannot have an empty defense";
+    }
+    if (!attributes || !attributes.moves || attributes.moves.length === 0) {
+      return "cannot have an empty moves";
+    }
+  }
 });
 
 Pokedex.Models.Toy = null; // WRITE ME IN PHASE 2
@@ -45,6 +65,7 @@ window.Pokedex.RootView = function ($el) {
 
   // Click handlers go here.
   this.$pokeList.on("click", "li", this.selectPokemonFromList.bind(this));
+  this.$newPoke.on("submit", this.submitPokemonForm.bind(this));
 };
 
 $(function() {
