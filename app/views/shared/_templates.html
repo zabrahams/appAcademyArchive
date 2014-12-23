@@ -1,0 +1,50 @@
+<script type="text/template" id="pokemon-list-item-template">
+  <li class="poke-list-item">
+    <%% var props = ["name", "poke_type"]; %>
+    <%% props.forEach( function (prop) { %>
+      <h3><%%= prop %>: <h6><%%= pokemon.escape(prop) %></h6></h3>
+    <%% }); %>
+  </li>
+</script>
+
+<script type="text/template" id="pokemon-detail-template">
+  <ul class="detail">
+    <%% var props = Object.keys(pokemon.attributes).slice(1); %>
+    <%% props.forEach ( function (prop) { %>
+      <%% if (prop === "image_url") { %>
+        <img src="<%%= pokemon.escape(prop) %>" alt="Pokemon Image">
+      <%% } else { %>
+        <li>
+          <h3><%%= prop %>:<h6><%%= pokemon.escape(prop) %></h6></h3>
+        </li>
+      <%% } %>
+    <%% }); %>
+  </ul>
+</script>
+
+<script type="text/template" id="toy-list-item-template">
+  <li class="toy-list-item">
+    <%% var props = ["name", "happiness", "price"]; %>
+    <%% props.forEach( function (prop) { %>
+        <h3><%%= prop %>: <h6><%%= toy.escape(prop) %></h6></h3>
+    <%% }); %>
+  </li>
+</script>
+
+<script type="text/template" id="toy-detail-template">
+  <ul class="detail">
+    <%% var props = Object.keys(toy.attributes); %>
+    <%% props.forEach ( function (prop) { %>
+      <%% if (prop === "image_url") { %>
+        <img src="<%%= toy.escape(prop) %>" alt="Toy Image">
+      <%% } else { %>
+        <li>
+          <h3><%%= prop %>:<h6><%%= toy.escape(prop) %></h6></h3>
+        </li>
+      <%% } %>
+    <%% }); %>
+  </ul>
+</script>
+
+<script type="text/template" id="pokemon-form-template">
+</script>
