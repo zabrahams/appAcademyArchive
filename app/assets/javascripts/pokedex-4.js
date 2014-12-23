@@ -4,6 +4,10 @@ $(function () {
   JST["pokemonDetail"] =
     _.template($("#pokemon-detail-template").html());
 
+
+  JST["toyList"] =
+  _.template($("#toys-template").html());
+
   JST["pokemonListItem"] =
     _.template($("#pokemon-list-item-template").html());
 

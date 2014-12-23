@@ -7,6 +7,11 @@ Pokedex.Views.PokemonIndex = Backbone.View.extend({
 
   initialize: function () {
     this.collection = new Pokedex.Collections.Pokemon();
+    this.listenTo(this.collection, "add", this.addPokemonToList);
+  },
+
+  logStuff: function () {
+    console.log("STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF STUFF");
   },
 
   addPokemonToList: function (pokemon) {
@@ -21,7 +26,6 @@ Pokedex.Views.PokemonIndex = Backbone.View.extend({
       success: function () {
         callback && callback();
         that.render();
-        console.log(that.collection)
       }
     })
   },
@@ -66,7 +70,7 @@ Pokedex.Views.PokemonDetail = Backbone.View.extend({
     this.$el.html(JST["pokemonDetail"]({pokemon: this.model}));
     var toys = this.model.toys();
 
-    var $ul = $("<ul class='toys'>");
+    var $ul = $(JST["toyList"]({}));
     toys.forEach( function (toy) {
       var $content = $(JST["toyListItem"]({toy: toy}));
       $content.data("toy-id", toy.get("id"));
