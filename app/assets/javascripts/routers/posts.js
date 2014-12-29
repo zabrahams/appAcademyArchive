@@ -17,7 +17,6 @@ Journyl.Routers.Posts = Backbone.Router.extend({
   },
   show: function (id) {
     var post = this.posts.getOrFetch(id);
-    console.log(post.id);
     var postView = new Journyl.Views.PostShow({ model: post });
     this._swapView(postView);
     this._indexView || this.index();
