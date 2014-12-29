@@ -1,3 +1,123 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body, h1, a, ul, li, button, header, h3, p, div {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-decoration: inherit;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  list-style: none;
+}
+
+body {
+  font-family: sans-serif;
+  background: lightgrey;
+}
+
+.group::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#main {
+  position: relative;
+
+  width: 700px;
+  margin: auto;
+  background: yellow;
+}
+
+header {
+  padding: 20px;
+  font-size: 30px;
+  background: lightblue;
+}
+
+ul {
+  margin-bottom: 10px;
+}
+
+li {
+  padding: 5px
+}
+
+h1 {
+  font-size: 25px;
+}
+
+div#index {
+  background: lightgreen;
+  float: left;
+  width: 337px;
+  border: 2px solid black;
+  border-right: 1px solid black;
+  padding: 15px;
+}
+
+div#content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 337px;
+  background: lightpink;
+  border: 2px solid black;
+  border-left: 1px solid black;
+  padding: 5px;
+}
+
+button {
+  position: absolute;
+  padding: 3px;
+  right: 360px;
+  margin: 2px;
+  background: purple;
+  border-radius: 4px;
+  color: white;
+  font-variant: small-caps;
+}
+
+button:hover {
+  color: purple;
+  background: white;
+  cursor: wait;
+}
+
+a {
+  text-decoration: underline;
+  color: darkgreen;
+}
+
+a:last-child {
+  margin-top: 10px;
+  padding: 3px;
+  border: 2px solid purple;
+  background: purple;
+  color: white;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  padding: 2px;
+  color: yellow;
+  text-shadow: 3px 3px black;
+}
+
+input {
+  border-radius: 15px;
+
+}
+
+textarea {
+  width: 300px;
+  height: 120px;
+  margin: auto;
+  border-radius: 15px;
+  padding: 4px;
+}
