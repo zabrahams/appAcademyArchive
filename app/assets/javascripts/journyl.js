@@ -4,17 +4,13 @@ window.Journyl = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
   }
 };
 
 $(document).ready(function(){
   Journyl.initialize();
   var posts = new Journyl.Collections.Posts;
-  posts.fetch({
-    success: function () {
-      var postsView = new Journyl.Views.PostsIndex({ el: "body", collection: posts });
-      postsView.render();
-    }
-  });
+  posts.fetch();
+  new Journyl.Routers.Posts({ $el: $("body"), posts: posts });
+  Backbone.history.start();
 });

@@ -5,9 +5,10 @@ Journyl.Views.PostsIndex = Backbone.View.extend({
   events: {
     'click button.delete-btn': 'deletePost'
   },
-  template: JST['posts/posts_index'],
+  template: JST['posts/index'],
   render: function () {
     this.$el.html(this.template({ posts: this.collection }));
+    return this;
   },
   deletePost: function (event) {
     var button = $(event.currentTarget);
