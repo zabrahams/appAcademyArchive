@@ -10,4 +10,11 @@ window.Journyl = {
 
 $(document).ready(function(){
   Journyl.initialize();
+  var posts = new Journyl.Collections.Posts;
+  posts.fetch({
+    success: function () {
+      var postsView = new Journyl.Views.PostsIndex({ el: "body", collection: posts });
+      postsView.render();
+    }
+  });
 });
