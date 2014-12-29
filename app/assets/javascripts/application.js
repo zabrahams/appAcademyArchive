@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require underscore
+// = require underscore
 //= require backbone
 //= require journyl
 //= require_tree ../templates
