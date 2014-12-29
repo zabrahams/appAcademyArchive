@@ -4,7 +4,7 @@ Journyl.Collections.Posts = Backbone.Collection.extend({
   getOrFetch: function (id) {
     var posts = this;
 
-    var post = this.get(id);
+    var post = posts.get(id);
     if (typeof post === 'undefined') {
       post = new Journyl.Models.Post({id: id});
       post.fetch({

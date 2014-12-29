@@ -1,5 +1,10 @@
 <h1>New Post</h1>
 
+<% if (post.validationError) { %>
+  <%= post.validationError %>
+<% } %>
+
+
 <form action="" method="post" id="post_form">
 
   <label for="post_title">Title</label>
@@ -10,5 +15,7 @@
   <label for="post_body">Post Body</label>
   <textarea name="post[body]" id="post_body"><%= post.escape('body') %></textarea>
 
+  <br>
+  <br>
   <input type="submit" value="Create Post">
 </form>

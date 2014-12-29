@@ -1,4 +1,11 @@
-<h1><%= post.escape("title") %></h1>
-<p><%= post.escape("body") %></p>
-<br>
-<a href="#">Back</a>
+<% if (post.validationError) { %>
+  <%= post.validationError %>
+<% } %>
+
+<div class="title">
+  <h1><%= post.escape("title") %></h1>
+</div>
+
+<div class="body">
+  <p><%= post.escape("body") %></p>
+</div>

@@ -1,4 +1,7 @@
 Journyl.Views.PostForm = Backbone.View.extend({
+  initialize: function () {
+    this.listenTo(this.model, "invalid", this.render);
+  },
   events: {
     'submit #post_form': 'handleFormSubmission'
   },
