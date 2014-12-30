@@ -1,7 +1,7 @@
 <h2><%= feed.escape('title') %></h2>
 <ul>
   <% entries.each(function (entry) { %>
-    <li><%= entry.escape('title') %></li>
+    <li data-id="<%= entry.id %>"><a href="javascript:void(0);" class="headline"><%= entry.escape('title') %></a></li>
   <% }) %>
 </ul>
 <button class="refresh">Refresh</button>

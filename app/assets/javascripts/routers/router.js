@@ -23,7 +23,7 @@ NewsReader.Routers.Router = Backbone.Router.extend({
   },
 
   swapView: function (newView) {
-    this._currentView && this._currentView.remove();
+    this._currentView && this._currentView.leave();
     this._currentView = newView;
     this.$el.html(newView.render().$el);
   }
