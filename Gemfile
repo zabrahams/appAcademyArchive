@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'simple-rss'
 gem 'backbone-on-rails'
 gem 'ejs'
+gem 'pry-rails'
 
 group :doc do
   gem 'sdoc', require: false
