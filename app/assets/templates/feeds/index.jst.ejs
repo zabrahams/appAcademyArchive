@@ -1,6 +1,9 @@
 <h2 class="feed-index-header">All the Feeds!</h2>
 <ul>
   <% feeds.each (function (feed) { %>
-      <li><a href="#feeds/<%= feed.id %>"><%= feed.escape("title")%></a></li>
+      <li>
+        <a href="#feeds/<%= feed.id %>"><%= feed.escape("title")%></a>
+        <button class="feed-delete" data-id="<%= feed.id %>">Delete!</button>  
+      </li>
   <% }); %>
 </ul>

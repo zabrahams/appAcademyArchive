@@ -32,6 +32,7 @@ li {
 header {
   background: orange;
   padding: 10px;
+  border-bottom: 2px solid #F08000;
 }
 
 header a {
@@ -92,6 +93,26 @@ h2 {
   background: #F08000;
   border: 3px solid orange;
   cursor: pointer;
+}
+
+.feed-delete {
+    font-size: 14px;
+    font-weight: bold;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: orange;
+    padding: 6px;
+    border: 2px solid #F08000;
+    border-radius: 10px;
+    display: block;
+}
+
+
+.feed-delete:hover  {
+background: #F08000;
+border: 2px solid orange;
+cursor: pointer;
 }
 
 .article-link:hover {
