@@ -9,19 +9,26 @@ body {
 
 }
 
+header {
+  background: #f00;
+  border-bottom: #ccc solid 1px;
+  position: relative;
+  z-index: 1;
+}
+
+
 nav {
   color: #fff;
-  background: #f00;
-  padding-left: 67px;
-  padding-right: 66px;
-  border-bottom: #ccc solid 1px;
   font-size: 16px;
+  margin: auto;
+  width: 900px;
+  border-left: #ccc solid 1px;
+  border-right: #ccc solid 1px;
 }
 
 strong.header-bar-logo a {
   font-weight: 700;
   float:left;
-  border-left: #ccc solid 1px;
   border-right: #ccc solid 1px;
   padding-left: 20px;
   padding-right: 20px;
@@ -35,13 +42,12 @@ strong.header-bar-logo a:hover {
 
 ul.header-bar-links {
   float:right;
-  border-left: #ccc solid 1px;
-
 }
 
-ul.header-bar-links li {
+ul.header-bar-links > li {
+  display: block;
   float:left;
-  border-right: #ccc solid 1px;
+  border-left: #ccc solid 1px;
 }
 
 ul.header-bar-links li a{
@@ -52,6 +58,6 @@ ul.header-bar-links li a{
   padding-bottom: 10px;
 }
 
-ul.header-bar-links li a:hover {
+ul.header-bar-links > li:hover {
   background-color: #000;
 }
