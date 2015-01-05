@@ -1,11 +1,13 @@
 /* PHASE 6: Sidebar */
 
+
 .profile-picture > a {
   display: block;
   border: 1px solid black;
   border-radius: 5px;
   margin-top: -140px;
   position: relative;
+  overflow: hidden;
 
 
 }
