@@ -1,1 +1,35 @@
 /* PHASE 4: Footer */
+
+footer {
+  display: block;
+  border-left: #ccc solid 1px;
+  border-right: #ccc solid 1px;
+  border-bottom: #ccc solid 1px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 860px;
+  margin: auto;
+  padding: 20px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+footer small {
+  display: block;
+  float: left;
+}
+
+footer ul {
+  display: block;
+  float: right;
+}
+
+footer ul > li {
+  display: block;
+  float: left;
+  margin-left: 20px;
+}
+
+footer ul li a:hover {
+  color: #000;
+}

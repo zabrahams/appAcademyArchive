@@ -12,7 +12,7 @@
 
 .content .sidebar {
   width: 200px;
-  min-height: 200px;
+  min-height: 160px;
   display: block;
   float: left;
   padding: 40px 20px;
@@ -20,7 +20,7 @@
 
 .content .main {
   width: 620px;
-  min-height: 200px;
+  min-height: 160px;
   display: block;
   float: left;
   padding: 40px 20px;
