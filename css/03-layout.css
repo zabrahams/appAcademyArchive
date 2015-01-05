@@ -23,7 +23,7 @@
   min-height: 160px;
   display: block;
   float: left;
-  padding: 40px 20px;
+  padding: 20px;
 }
 
 .content::before {

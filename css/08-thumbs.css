@@ -20,7 +20,7 @@
 .profile-friends {
   margin-top: 20px;
 }
-.profile-friends a:hover:before {
+.thumb:hover:before {
   position: absolute;
   display: block;
   content: attr(title);
@@ -33,7 +33,7 @@
   bottom: 112%;
 }
 
-.profile-friends a:hover:after {
+.thumb:hover:after {
   display:block;
   content: '';
   position: absolute;

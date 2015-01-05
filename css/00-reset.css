@@ -14,6 +14,7 @@ span, article, footer, time, small {
   color: inherit;
   background: transparent;
   box-sizing: inherit;
+  outline: none;
 }
 
 a {
