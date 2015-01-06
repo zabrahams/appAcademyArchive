@@ -25,6 +25,7 @@
 .posts > li {
   display: block;
   float: left;
+  height: 243px;
 }
 
 .post {

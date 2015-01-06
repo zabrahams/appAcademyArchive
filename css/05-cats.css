@@ -30,5 +30,11 @@
   font-weight: 700;
   font-size: 16px;
   top: 137px;
-  left: 761px;
+  left: 737px;
+  width: 101px;
+}
+
+.content-header label {
+  display: block;
+  float: left;
 }
