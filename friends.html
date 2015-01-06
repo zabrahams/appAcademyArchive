@@ -25,7 +25,7 @@
   <header>
     <nav class="header-bar group">
       <strong class="header-bar-logo">
-      <a href="#">App Academy Friends</a>
+      <a href="#" class="js-modal-open">App Academy Friends</a>
       </strong>
 
       <ul class="header-bar-links group">
@@ -237,9 +237,46 @@
     </ul>
   </footer>
 
+  <section class="modal">
+    <section class="modal-screen">
+    </section>
+
+    <form class="modal-form">
+      <h1>Welcome</h1>
+      Please sign in to continue.
+      <a href="#" class="exit js-modal-close">&times</a>
+      <label class="email_label"> Email
+        <input type="text" name="some_name" value="sennacy@appacademy.io">
+      </label>
+      <label for=""> Password
+        <input type="password" name="some_password" value="password">
+      </label>
+      <button>Sign In</button>
+      or <a href="#" class="js-modal-close">Cancel</a>
+    </form>
+
+
+
+
+
+    </section>
+  </section>
+
   <script src="../shared/js/jquery.js"></script>
   <script>
+  $(function(){
 
+    $("body").on("click", ".js-modal-open", function(event){
+      event.preventDefault();
+      $(".modal").addClass("is-open");
+    });
+
+    $("body").on("click", ".js-modal-close", function(event){
+      event.preventDefault();
+      $(".modal").removeClass("is-open");
+    });
+
+  });
   </script>
 
 </body>

@@ -12,7 +12,7 @@
   font-size: 12px;
 }
 
-.new-post form {
+form {
 
   margin-left: 10px;
   width: 500px;
@@ -27,13 +27,13 @@
   font-size: 16px;
 }
 
-.new-post form label {
+form label {
   display: block;
   font-weight: 700;
   font-size: 16px;
 }
 
-.new-post form input[type=text] {
+form input {
   display: block;
   width: 478px;
   font-weight: 400;
@@ -44,15 +44,15 @@
   margin-top: 5px;
 }
 
-.new-post form input[type=text]:focus {
+form input:focus {
   border: 1px solid #0c0;
 }
 
-.new-post form textarea:focus {
+ form textarea:focus {
   border: 1px solid #0c0;
 }
 
-.new-post form textarea {
+form textarea {
   display: block;
   width: 478px;
   font-weight: 400;
@@ -64,7 +64,7 @@
   height: 120px;
 }
 
-.new-post form button {
+form button {
   font-weight: 700;
   font-size: 16px;
   color: white;
@@ -75,22 +75,22 @@
   margin-right: 5px;
 }
 
-.new-post form button:hover {
+form button:hover {
   background: #0b0;
 }
 
-.new-post form button:active {
+form button:active {
   background: #0a0;
   box-shadow: 0px 0px 0;
   top: 3px;
   position: relative;
 }
 
-.new-post form a {
+form a {
   font-weight: 700;
   margin-left: 5px;
 }
 
-.new-post form a:hover {
+form a:hover {
   color: red;
 }
