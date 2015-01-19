@@ -1,0 +1,12 @@
+<form action="<%= the_url %>" method="POST">
+  <%= method(sub) %>
+  <%= form_token %>
+
+  <label for="sub_title">Title</label>
+  <input type="text" name="sub[title]" id="sub_title" value="<%= sub.title %>">
+
+  <label for="sub_description">Description</label>
+  <textarea name="sub[description]" id="sub_description"><%= sub.description %></textarea>
+
+  <input type="submit" value="<%= button_text(sub) %>">
+</form>

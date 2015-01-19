@@ -1,0 +1,26 @@
+<form action="<%= the_url %>" method="POST">
+  <%= method(post) %>
+  <%= form_token %>
+
+  <label for="post_title">Title</label>
+  <input type="text" name="post[title]" id="post_title" value="<%= post.title %>">
+
+  <label for="post_url">URL</label>
+  <input type="text" name="post[url]" id="post_url" value="<%= post.url %>">
+
+  <label for="post_content">Content</label>
+  <textarea name="post[content]" id="post_content"><%= post.content %></textarea>
+
+  <br>
+  <% Sub.all.each do |sub| %>
+    <input type="checkbox" name="post[sub_ids][]"
+           id="post_sub_id_<%= sub.id %>" value="<%= sub.id %>"
+           <%= "checked" if post.sub_id == sub.id %>>
+    <label for="post_sub_id<%= sub.id %>"><%= sub.title %></label>
+    <br>
+  <% end %>
+
+
+  <input type="submit" value="<%= button_text(post) %>">
+
+</form>
