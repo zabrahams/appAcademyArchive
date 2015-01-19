@@ -1,0 +1,36 @@
+/* Reset */
+
+body, figure, img {
+  border: 0;
+  margin: 0;
+  padding: 0;
+
+  text-decoration: inherit;
+  text-align: inherit;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+}
+
+.zoomable {
+  width: 300px;
+  /*margin: 40px;*/
+  display: block;
+}
+
+.zoomable img {
+  width: 100%;
+}
+
+.focus-box {
+  border: 1px solid white;
+  position: absolute;
+}
+
+.zoomed-image {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  background-repeat: no-repeat;
+}

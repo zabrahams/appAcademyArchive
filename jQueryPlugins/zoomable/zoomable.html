@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./zoomable.css" type="text/css">
+    <script src="../vendor/jquery-2.1.1.js"></script>
+    <script src="./zoomable.js"></script>
+    <title>Zoomable Test</title>
+  </head>
+  <body>
+
+    <figure class="zoomable">
+      <img src="../assets/images/Bruegel.jpg">
+    </figure>
+
+    <script>
+      $(function () {
+        $(".zoomable").zoomable();
+      });
+    </script>
+  </body>
+</html>
