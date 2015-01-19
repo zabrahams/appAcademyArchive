@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>App Academy Friends</title>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/00-reset.css" type="text/css">
+  <link rel="stylesheet" href="css/01-header.css" type="text/css">
+  <link rel="stylesheet" href="css/02-notifications.css" type="text/css">
+  <link rel="stylesheet" href="css/03-layout.css" type="text/css">
+  <link rel="stylesheet" href="css/04-footer.css" type="text/css">
+  <link rel="stylesheet" href="css/05-cats.css" type="text/css">
+  <link rel="stylesheet" href="css/06-sidebar.css" type="text/css">
+  <link rel="stylesheet" href="css/07-online.css" type="text/css">
+  <link rel="stylesheet" href="css/08-thumbs.css" type="text/css">
+  <link rel="stylesheet" href="css/09-forms.css" type="text/css">
+  <link rel="stylesheet" href="css/10-posts.css" type="text/css">
+  <link rel="stylesheet" href="css/11-icons.css" type="text/css">
+  <link rel="stylesheet" href="css/12-modal.css" type="text/css">
+</head>
+<body>
+
+  <!-- YOUR HTML HERE -->
+
+  <header>
+    <nav class="header-bar group">
+      <strong class="header-bar-logo">
+      <a href="#" class="js-modal-open">App Academy Friends</a>
+      </strong>
+
+      <ul class="header-bar-links group">
+        <li class="notifications">
+          <a href="#" class="notifications-label">
+            Notifications
+            <content class="badge">3</content>
+          </a>
+          <ul class="notifications-list">
+            <li>Constance likes your photo.</li>
+            <li>Tommy left you a comment.</li>
+            <li>Jonathan is now following you.</li>
+          </ul>
+        </li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="content group">
+    <section class="content-header">
+      <h1>Sennacy The Great</h1>
+      <button><i class="icon-small-friends"></i><label>Add Friend</label></button>
+    </section>
+    <section class="sidebar">
+
+      <section class="profile-picture">
+        <a href="#">
+          <img src="../shared/img/cat.jpg" alt="Cat Cuteness"/>
+          <content class="online">Online</content>
+        </a>
+      </section>
+
+      <section class="profile-info">
+        <h1>Sennacy</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </section>
+
+      <ul class="profile-nav group">
+        <li><a href="#"><i class="icon-small-wall"></i>Wall</a></li>
+        <li><a href="#"><i class="icon-small-about"></i>About</a></li>
+        <li><a href="#"><i class="icon-small-friends"></i>Friends</a></li>
+        <li><a href="#"><i class="icon-small-photos"></i>Photos</a></li>
+      </ul>
+
+      <ul class="profile-friends group">
+        <li>
+          <a href="#" class="thumb" title="Sennacy">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Jonathan">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Tommy">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Constance">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Ned">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Kush">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="CJ">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Jeff">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+        <li>
+          <a href="#" class="thumb" title="Simon">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </li>
+      </ul>
+
+    </section>
+
+
+    <section class="main">
+      <section class="new-post group">
+        <fig>
+          <a href="#" class="thumb" title="Sennacy">
+            <img src="../shared/img/cat.jpg" title="" />
+          </a>
+        </fig>
+        <form id="form_id">
+          <label for=""> Post Title
+            <input type="text" name="some_name" value="Lorem Ipsum Dolor Sit Amet">
+          </label>
+          <label for=""> Post Body
+            <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+          </label>
+          <button>Post To Wall</button>
+          or <a href="#">Cancel</a>
+        </form>
+      </section>
+
+      <ul class="posts group">
+
+        <li>
+          <fig>
+            <a href="#" class="thumb" title="Sennacy">
+              <img src="../shared/img/cat.jpg" title="" />
+            </a>
+          </fig>
+          <section class="post">
+            <h1>Hello World</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <nav class="post-footer">
+              <ul class="post-details group">
+                <li>Sennacy</li>
+                <li>3 hours ago</li>
+                <li>541 views</li>
+              </ul>
+
+              <ul class="post-links group">
+                <li><a href="#" class="icon-comment">Comment</a></li>
+                <li><a href="#" class="icon-reblog">Reblog</a></li>
+                <li><a href="#" class="icon-favorite">Favorite</a></li>
+              </ul>
+            </nav>
+          </section>
+        </li>
+
+        <li>
+          <fig>
+            <a href="#" class="thumb" title="Sennacy">
+              <img src="../shared/img/cat.jpg" title="" />
+            </a>
+          </fig>
+          <section class="post">
+            <h1>Hello World</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <nav class="post-footer">
+              <ul class="post-details group">
+                <li>Sennacy</li>
+                <li>3 hours ago</li>
+                <li>541 views</li>
+              </ul>
+
+              <ul class="post-links group">
+                <li><a href="#" class="icon-comment">Comment</a></li>
+                <li><a href="#" class="icon-reblog">Reblog</a></li>
+                <li><a href="#" class="icon-favorite">Favorite</a></li>
+              </ul>
+            </nav>
+          </section>
+        </li>
+
+        <li>
+          <fig>
+            <a href="#" class="thumb" title="Sennacy">
+              <img src="../shared/img/cat.jpg" title="" />
+            </a>
+          </fig>
+          <section class="post">
+            <h1>Hello World</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <nav class="post-footer">
+              <ul class="post-details group">
+                <li>Sennacy</li>
+                <li>3 hours ago</li>
+                <li>541 views</li>
+              </ul>
+
+              <ul class="post-links group">
+                <li><a href="#" class="icon-comment">Comment</a></li>
+                <li><a href="#" class="icon-reblog">Reblog</a></li>
+                <li><a href="#" class="icon-favorite">Favorite</a></li>
+              </ul>
+            </nav>
+          </section>
+        </li>
+
+
+
+      </ul>
+    </section>
+  </section>
+
+  <footer class="group">
+    <small>© 2014 App Academy. All rights reserved.</small>
+    <ul class="footer-links group">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+  </footer>
+
+  <section class="modal">
+    <section class="modal-screen">
+    </section>
+
+    <form class="modal-form">
+      <h1>Welcome</h1>
+      Please sign in to continue.
+      <a href="#" class="exit js-modal-close">&times</a>
+      <label class="email_label"> Email
+        <input type="text" name="some_name" value="sennacy@appacademy.io">
+      </label>
+      <label for=""> Password
+        <input type="password" name="some_password" value="password">
+      </label>
+      <button>Sign In</button>
+      or <a href="#" class="js-modal-close">Cancel</a>
+    </form>
+
+
+
+
+
+    </section>
+  </section>
+
+  <script src="../shared/js/jquery.js"></script>
+  <script>
+  $(function(){
+
+    $("body").on("click", ".js-modal-open", function(event){
+      event.preventDefault();
+      $(".modal").addClass("is-open");
+    });
+
+    $("body").on("click", ".js-modal-close", function(event){
+      event.preventDefault();
+      $(".modal").removeClass("is-open");
+    });
+
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* PHASE 10: Posts */
+
+.posts fig {
+  position: relative;
+  float: left;
+  display: block;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 58px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.posts > li:before {
+  width: 620px;
+  margin: 20px auto;
+  content: '';
+  display: block;
+  border-top: 1px solid #ccc;
+  left: 0;
+  right: 0;
+}
+
+.posts > li {
+  display: block;
+  float: left;
+  height: 243px;
+}
+
+.post {
+  width: 540px;
+  float: left;
+  display: block;
+  margin-left: 10px;
+
+}
+
+.post h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.post p {
+  font-size: 16px;
+  width: 100%;
+}
+
+ul.post-details {
+  color: #aaa;
+  display: block;
+  float: left;
+}
+
+ul.post-links {
+  font-size: 16px;
+  margin-top: 20px;
+  display: block;
+  float: right;
+}
+
+ul.post-details > li {
+  margin-top: 20px;
+  display: block;
+  float: left;
+}
+
+ul.post-details li:nth-child(1n+2):before {
+  padding: 0px 5px;
+  content: '·';
+}
+
+ul.post-links > li {
+  margin-left: 10px;
+  display: block;
+  float: left;
+}

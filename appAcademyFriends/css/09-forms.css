@@ -1,0 +1,96 @@
+/* PHASE 9: Forms */
+
+.new-post fig {
+  position: relative;
+  float: left;
+  display: block;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 58px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+form {
+
+  margin-left: 10px;
+  width: 500px;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-top: 19px;
+  padding-bottom: 22px;
+  padding-left: 19px;
+  padding-right: 19px;
+  font-size: 16px;
+}
+
+form label {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+form input {
+  display: block;
+  width: 478px;
+  font-weight: 400;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+form input:focus {
+  border: 1px solid #0c0;
+}
+
+ form textarea:focus {
+  border: 1px solid #0c0;
+}
+
+form textarea {
+  display: block;
+  width: 478px;
+  font-weight: 400;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  height: 120px;
+}
+
+form button {
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  background: #0c0;
+  box-shadow: 0px 3px 0 #070;
+  padding: 10px 20px;
+  margin-right: 5px;
+}
+
+form button:hover {
+  background: #0b0;
+}
+
+form button:active {
+  background: #0a0;
+  box-shadow: 0px 0px 0;
+  top: 3px;
+  position: relative;
+}
+
+form a {
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+form a:hover {
+  color: red;
+}

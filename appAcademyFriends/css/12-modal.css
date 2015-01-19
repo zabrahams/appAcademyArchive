@@ -1,0 +1,53 @@
+/* PHASE 12: Modal */
+
+.modal {
+  display: none;
+}
+
+.modal.is-open {
+  display: block;
+}
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right:  0;
+
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-form {
+  position: absolute;
+  width: 390px;
+  height: 300px;
+  background: white;
+  z-index: 2;
+  top: 100px;
+  left: 540px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.modal-form h1 {
+  font-size: 36px;
+  font-weight: 300;
+}
+
+.modal-form input {
+  width: 360px;
+}
+
+.modal-form a.exit {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  font-weight: 400;
+  font-size: 36px;
+}
+
+.modal-form label.email_label{
+  padding-top: 20px;
+}
