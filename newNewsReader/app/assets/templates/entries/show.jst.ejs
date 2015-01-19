@@ -1,0 +1,4 @@
+<h3><a href="<%= entry.get('link') %>" class="article-link">Article</a></h3>
+<article>
+  <%= _.unescape(JSON.parse(entry.get('json')).description) %>
+</article>
