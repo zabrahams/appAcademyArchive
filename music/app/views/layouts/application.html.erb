@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if signed_in? %>
+<form action="<%= session_url %>" method="post">
+  <%= authenticity_token %>
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Sign Out">
+</form>
+<% end %>
+
+<% if flash[:notice] %>
+<h4><%= flash[:notice] %></h4>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<% action = (verb == "post" ? bands_url : band_url(band)) %>
+<% button_text = (verb == "post" ? "Create Band" : "Update Band") %>
+
+<form action="<%= action %>" method="post">
+
+  <label for="band_name">Band Name:</label>
+  <input type="text" name="band[name]" value="<%= @band.name %>" id="band_name">
+  <br>
+  
+  <%= authenticity_token %>
+
+  <% if verb == "patch" %>
+  <%= '<input type="hidden" name="_method" value="patch">'.html_safe %>
+  <% end %>
+
+  <input type="submit" value="<%= button_text %>">
+</form>

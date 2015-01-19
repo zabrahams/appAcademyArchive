@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome to the ugliest music site on the net</h1>
+    <p>
+      That you so much for signing up.  Before you can use your account
+      you need to activate it.
+    </p>
+    <p>
+      To activate your account. Please click on the below link.
+    </p>
+    <a href="<%= activate_users_url  %>?activation_token=<%= @user.activation_token %>">
+      Click Me! I swear I'm not spam!
+    </a>
+  </body>
+</html>

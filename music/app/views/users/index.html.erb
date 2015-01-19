@@ -1,0 +1,17 @@
+<h1>User Administration</h1>
+
+<ol>
+  <% @users.each do |user| %>
+  <li>
+    <label>Email: </label>
+    <%= user.email %>
+    <% if user.admin %>
+      Administrator
+    <% else %>
+      <form action="<%= make_admin_user_url(user) %>" method="post">
+        <%= authenticity_token %>
+        <input type="submit" value="Make Admin">
+      </form>
+    <% end %>
+  <% end %>
+</ol>

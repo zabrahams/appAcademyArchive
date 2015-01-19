@@ -1,0 +1,4 @@
+<h1>Edit <%= @track.title %></h1>
+
+<%= render 'shared/errors' %>
+<%= render 'form', track: @track, verb: "patch" %>

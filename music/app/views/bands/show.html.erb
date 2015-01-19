@@ -1,0 +1,26 @@
+<h1><%= @band.name %></h1>
+
+<% unless @band.albums.empty? %>
+<ul>
+  <% @band.albums.each do |album| %>
+  <li><a href="<%= album_url(album) %>"><%= album.title %></a></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if admin? %>
+
+  <a href="<%= new_band_album_url(@band) %>">New Album</a>
+  <br>
+  <a href="<%= edit_band_url(@band) %>">Edit <%= @band.name %></a>
+  <br>
+
+  <form action="<%= band_url(@band) %>" method="post">
+    <%= authenticity_token %>
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Break Up the Band">
+  </form>
+
+
+<% end%>
+<a href="<%= bands_url %>">Back to Band Index</a>

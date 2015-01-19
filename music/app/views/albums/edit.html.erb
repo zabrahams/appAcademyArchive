@@ -1,0 +1,4 @@
+<h1>Edit <%= @album.title %></h1>
+
+<%= render 'shared/errors' %>
+<%= render 'form', album: @album, verb: "patch" %>
