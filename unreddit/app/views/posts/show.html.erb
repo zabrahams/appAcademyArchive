@@ -1,0 +1,22 @@
+<h1><%= link_to @post.title, @post.url %></h1>
+
+<div>
+  <%= @post.content %>
+</div>
+
+<% if @post.author_id == current_user.id %>
+  <%= link_to "Edit", edit_post_url(@post) %>
+<% end %>
+
+<% if @comments %>
+  <% @comments.each do |comment| %>
+    <div>
+      <%= link_to "Comment Link", comment_url(comment) %>
+      <br>
+      <%= comment.content %>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+<%= link_to "Add New Comment", new_post_comment_url(@post) %>

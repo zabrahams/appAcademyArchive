@@ -1,0 +1,5 @@
+<h1>Comment:</h1>
+
+<%= render 'comment', comment: @comment, comments_hash: @comments_hash %>
+
+<%= render 'form', post: @comment.post, parent_comment_id: @comment.id %>
