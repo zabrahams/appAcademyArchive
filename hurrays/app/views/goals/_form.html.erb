@@ -1,0 +1,27 @@
+<form action="<%= goal.url%>" method = "Post">
+  <%= goal.method %>
+  <%= form_token %>
+
+  <label>Title
+  <input type="text" name="goal[title]" value="<%= goal.title %>">
+  </label>
+
+  <label>Body
+  <textarea name="goal[body]" rows="8" cols="40"><%= goal.body %></textarea>
+  </label>
+
+  <label>
+  <input type="radio" name="goal[pub_status]" value="true" <%= "checked" if goal.pub_status? %>>Public
+  </label>
+  <label>
+  <input type="radio" name="goal[pub_status]" value="false" <%= "checked" if !goal.pub_status? %>>Private
+  </label>
+
+  <br>
+  <label>Completed?
+  <input type="checkbox" name="goal[completed]" value="true" <%= 'checked' if goal.completed? %> />
+  </label>
+
+  <input type="submit" value="<%= goal.button_text %>">
+
+</form>
