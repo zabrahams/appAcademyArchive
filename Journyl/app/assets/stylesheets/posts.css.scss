@@ -1,0 +1,197 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body, h1, a, ul, li, button, header, h3, p, div, footer, input, textarea {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-decoration: inherit;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  list-style: none;
+}
+
+body {
+  font-family: sans-serif;
+  background: lightgrey;
+}
+
+.group::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#main {
+  position: relative;
+
+  width: 700px;
+  margin: auto;
+  background: yellow;
+}
+
+header {
+  padding: 20px;
+  font-size: 40px;
+  background: lightblue;
+  border-bottom: 2px solid black;
+}
+
+ul {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+li {
+  margin-top: 9px;
+  padding: 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted darkblue;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+div#index {
+  background: lightgreen;
+  float: left;
+  width: 337px;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  padding: 15px;
+}
+
+div#index h3 {
+  font-weight: bold;
+  font-size: 30px;
+  background: #A0EFC6;
+  margins: auto;
+  padding: 7px;
+  border-radius: 15px;
+  text-align: center;
+  width: 304px;
+  border: 2px solid darkblue;
+}
+
+div#content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 337px;
+  background: lightpink;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  padding: 5px;
+}
+
+div#content h1 {
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+div#content p {
+  padding: 20px;
+  margin: 10px;
+  background: #F3C6D0;
+  border-radius: 15px;
+  border: 3px solid black;
+}
+
+button {
+  position: absolute;
+  padding: 8px;
+  right: 370px;
+  margin-top: -8px;
+  background: lightblue;
+  border-radius: 15px;
+  color: darkblue;
+  font-variant: small-caps;
+  border: 2px solid darkblue;
+}
+
+button:hover {
+  color: lightblue;
+  background: darkblue;
+  cursor: wait;
+}
+
+
+a {
+  padding: 8px;
+  margin: 2px;
+  margin-top: 7px;
+  background: lightgreen;
+  color: darkblue;
+  border-radius: 5px;
+}
+
+a:last-child {
+  background: lightblue;
+  border: 2px solid darkblue;
+  border-radius: 15px;
+
+}
+
+a:hover {
+    color: darkblue;
+    background: #A0EFC6;
+    border: 2px solid darkblue;
+    border-radius: 15px;
+    margin-left: 0px;
+}
+
+
+label {
+  display: block;
+  padding: 2px;
+  color: black;
+  margin: 3px;
+  font-weight: bold;
+
+}
+
+input {
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: none;
+  background: lightgrey;
+  border: 3px solid black;
+
+}
+
+textarea {
+  width: 300px;
+  height: 180px;
+  margin: auto;
+  border-radius: 15px;
+  padding: 10px;
+  background: lightgrey;
+  border: 3px solid black;
+  margin-left: 4px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+}
+
+#create-btn {
+  background:  lightgrey;
+}
+
+#create-btn:hover {
+  background: #F3C6D0;
+}
+
+#index>div {
+  margin: auto;
+  padding-right: 15px;
+}
